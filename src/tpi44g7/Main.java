@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 public class Main {
 
     public static void main(String[] args) throws IOException  {
+
         final int columnasResultados =4;
         final int columnasPronosticos =5;
         String archivoResultados = "D:\\El Ayudante\\Clases  de Java UTN\\TPI\\ArchivosEntrada\\resultados.csv";
