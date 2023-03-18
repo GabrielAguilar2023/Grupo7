@@ -12,7 +12,7 @@ public class Main {
         final int columnasPronosticos =5;
         String archivoResultados = "D:\\El Ayudante\\Clases  de Java UTN\\TPI\\ArchivosEntrada\\resultados.csv";
         String archivoPronosticos = "D:\\El Ayudante\\Clases  de Java UTN\\TPI\\ArchivosEntrada\\pronosticos.csv";
-        System.out.println(pasarArchivoAMatriz(archivoResultados,columnasResultados)[2][0]);
+        System.out.println(pasarArchivoAMatriz(archivoResultados,columnasResultados)[0][1]);
         System.out.println(pasarArchivoAMatriz(archivoPronosticos,columnasPronosticos)[2][3]);
     }
 
