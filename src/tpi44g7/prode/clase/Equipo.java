@@ -1,12 +1,11 @@
 package tpi44g7.prode.clase;
 
 public class Equipo {
-    String nombre;
-    String descripcion;
+   public String nombre;
+   public String descripcion;
 
-    //Constructor de la clase
-    public Equipo(String nombre, String descripcion) {
+    public Equipo(String nombre) {
         this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.descripcion ="Seleccion";
     }
 }
