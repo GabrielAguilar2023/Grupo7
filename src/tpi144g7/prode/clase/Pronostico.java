@@ -1,6 +1,6 @@
-package tpi44g7.prode.clase;
+package tpi144g7.prode.clase;
 
-import tpi44g7.prode.enumeracion.ResultadoEnum;
+import tpi144g7.prode.enumeracion.ResultadoEnum;
 
 public class Pronostico {
     public Partido partido;

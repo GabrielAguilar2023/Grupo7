@@ -1,4 +1,4 @@
-package tpi44g7.prode.clase;
+package tpi144g7.prode.clase;
 
 public class Ronda {
     String nro;
