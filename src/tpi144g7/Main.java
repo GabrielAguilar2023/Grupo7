@@ -14,7 +14,7 @@ public class Main {
         String archivoPronosticos;
         Scanner CapturaArchivo = new Scanner(System.in);
 
-        // Carga de Archivos por argumento
+        // Carga de Archivos por argumento: {"archivos.csv\resultados.csv","archivos.csv\pronosticos.csv"}
         if (args.length==2) {
             archivoResultados = args[0];
             archivoPronosticos = args[1];
