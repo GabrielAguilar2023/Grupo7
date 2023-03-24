@@ -14,7 +14,6 @@ public class Main {
         String archivoResultados;
         String archivoPronosticos;
         Scanner CapturaArchivo = new Scanner(System.in);
-
 // Carga de Archivos por argumento: {"archivos.csv\resultados.csv","archivos.csv\pronosticos.csv"}
         if (args.length==2) {
             archivoResultados = args[0];
@@ -27,11 +26,9 @@ public class Main {
             System.out.println("Directorio donde se encuentra el archivo pronosticos.csv: ");
             archivoPronosticos = CapturaArchivo.nextLine()+"\\pronosticos.csv";
             }
-
 //Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
         dimensionResultado   = analizarArchivos(archivoResultados);
         dimensionPronosticos = analizarArchivos(archivoPronosticos);
-
 //Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
@@ -39,7 +36,6 @@ public class Main {
            mostrarResultados(pronosticos);
         }
     }
-
     public static int[] analizarArchivos (String archivo) throws IOException {
         int numeroDeFilas = 0;
         int numeroDeColumnas = 0;
@@ -47,11 +43,10 @@ public class Main {
         if (Files.exists(Paths.get(archivo))) {
             for (String ignored : Files.readAllLines(Paths.get(archivo))) numeroDeFilas++;
         }
-        if (numeroDeFilas>1){
+        if (numeroDeFilas>1)
             for (String texto : Files.readAllLines(Paths.get(archivo))) {
-                String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-                numeroDeColumnas=vectorAux.length;
-            }
+            String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
+            numeroDeColumnas = vectorAux.length;
         }
         return new int[]{numeroDeFilas,numeroDeColumnas};
     }
@@ -97,45 +92,51 @@ public class Main {
         String [] listaOrdenar= new String [pronosticos.length];
 
 // Extrae los nombres asociados a cada linea de pronosticos
-        for (int i=0;i < pronosticos.length;i++) {
-            listaOrdenar [i]= pronosticos[i].Participante;
-        }
+        for (int i=0;i < pronosticos.length;i++)
+        listaOrdenar[i] = pronosticos[i].Participante;
         Arrays.sort(listaOrdenar); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
-
-//determinar la cantidad de participantes
-        int contador=1;
-        for(int i = 1;i< listaOrdenar.length;i++){
-            if (!listaOrdenar[i].equals(listaOrdenar[i-1])){
-               contador++;
-            }
-        }
-        String [] nombreParticipante = new String[contador];
-        nombreParticipante[0]=listaOrdenar[0];
-
-//identifica los participantes
-                if (listaOrdenar.length>0) {
-                    contador = 1;
-                    for (int i = 1; i < listaOrdenar.length; i++) {
-                        if (!listaOrdenar[i].equals(listaOrdenar[i - 1])) {
-                            nombreParticipante[contador] =listaOrdenar[i];
-                        }
-                    }
+//Determinar la cantidad de participantes
+        int contador = 1;
+        for(int i = 1;i< listaOrdenar.length;i++)
+            if (!listaOrdenar[i].equals(listaOrdenar[i - 1]))
+                contador++;
+        String[] nombreParticipante = new String[contador];
+        int[]   puntajeParticipante = new int[contador];
+        nombreParticipante[0] = listaOrdenar[0]; //Asigna el primer participante a la lista y comienza a comparar
+//Identifica los participantes
+        if (listaOrdenar.length>1) {
+            contador = 1;
+            for (int i = 1; i < listaOrdenar.length; i++)
+                if (!listaOrdenar[i].equals(listaOrdenar[i - 1])) {
+                    nombreParticipante[contador] = listaOrdenar[i];
+                    contador++;
                 }
-                int aciertos=0;
-        String aux1="";
-        String aux2="";
-        for (int i=0;i< pronosticos.length;i++){
-            aux1=nombreParticipante[1];
-            aux2=pronosticos[i].Participante;
-            if (aux1.equals(aux2)) {
-                aciertos += pronosticos[i].puntos();
-            }
         }
-
-
-
-
-        System.out.println("Cantidad de puntos de "+ nombreParticipante[1] +" es : "+ aciertos);
+//Asigna puntaje a cada participante
+    for (int j=0;j< nombreParticipante.length;j++) {
+        int aciertos = 0;
+        for (int i = 0; i < pronosticos.length; i++)
+            if (nombreParticipante[j].equals(pronosticos[i].Participante))
+            aciertos += pronosticos[i].puntos();
+        puntajeParticipante[j]=aciertos;
+    }
+// Ordena los participantes por puntaje (Metodo busrbuja)
+        for (int i = 0; i < puntajeParticipante.length; i++)
+            for (int j = 1; j < (puntajeParticipante.length - i); j++) {
+                if (puntajeParticipante[j - 1] < puntajeParticipante[j]) {
+                    int auxiliarPuntaje = puntajeParticipante[j - 1];
+                    String auxiliarNombre = nombreParticipante[j - 1];
+                    puntajeParticipante[j - 1] = puntajeParticipante[j];
+                    nombreParticipante[j - 1] = nombreParticipante[j];
+                    puntajeParticipante[j] = auxiliarPuntaje;
+                    nombreParticipante[j] = auxiliarNombre;
+                }
+            }
+//Impresion de los resultados ordenados de mayor a menor
+        for(int i=0;i<nombreParticipante.length;i++)
+            System.out.println(nombreParticipante[i] + ": " + puntajeParticipante[i] + " puntos.");
     }
 }
+
+
 
