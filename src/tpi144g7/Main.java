@@ -7,10 +7,15 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 public class Main {
     public static void main(String[] args) throws IOException  {
         int [] dimensionResultado;
         int [] dimensionPronosticos;
+        int numeroFijoDeColumnasResultados=6;
+        int numeroFijoDeColumnasPronosticos=8;
+
         String archivoResultados;
         String archivoPronosticos;
         Scanner CapturaArchivo = new Scanner(System.in);
@@ -26,36 +31,76 @@ public class Main {
             System.out.println("Directorio donde se encuentra el archivo pronosticos.csv: ");
             archivoPronosticos = CapturaArchivo.nextLine()+"\\pronosticos.csv";
             }
-//Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
-        dimensionResultado   = analizarArchivos(archivoResultados);
-        dimensionPronosticos = analizarArchivos(archivoPronosticos);
-//Si los archivos tienen filas continuar a creacion y carga de los objetos.
+
+// Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
+        dimensionResultado   = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
+        dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
+
+
+// Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
            mostrarResultados(pronosticos);
         }
     }
-    public static int[] analizarArchivos (String archivo) throws IOException {
+
+    public static int[] analizarArchivos (String archivo,int numeroDeColumnasObligatorias) throws IOException {
         int numeroDeFilas = 0;
-        int numeroDeColumnas = 0;
+        int errorArchivo = 0;
+        int lineaLeida = 0;
 // Determina si los archivos existen y devuelve la cantidad de filas y columnas
         if (Files.exists(Paths.get(archivo))) {
             for (String ignored : Files.readAllLines(Paths.get(archivo))) numeroDeFilas++;
+        }else{
+            errorArchivo = 1;
         }
-        if (numeroDeFilas>1)
+// Detrmina si el archivo tiene datos cargado y no solo la linea de encabezado
+        if (numeroDeFilas > 1)
             for (String texto : Files.readAllLines(Paths.get(archivo))) {
-            String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-            numeroDeColumnas = vectorAux.length;
+                String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
+// Determina el numero de columnas de cada linea del archivo y si los campos de goles son valores numericos
+                lineaLeida++;
+                if(lineaLeida>1){
+                    if (!(vectorAux.length == numeroDeColumnasObligatorias)) {errorArchivo = 2;}
+
+                    if (numeroDeColumnasObligatorias == 6) { //Si es 6 es el archivo de resultados
+// Determina si los goles son datos numericos
+                        if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {errorArchivo = 3;}
+                    }
+                }
+            }
+// Manejo de error de lectura de archivo
+        switch (errorArchivo) {
+            case 1:
+                System.out.println("No se puede acceder al archivo --> " + archivo);
+                System.exit(0);
+            case 2:
+                System.out.println("Error en la informacion del archivo --> " + archivo);
+                System.exit(0);
+            case 3:
+                System.out.println("Error en la lectura de goles");
+                System.exit(0);
         }
-        return new int[]{numeroDeFilas,numeroDeColumnas};
-    }
+        
+        return new int[]{numeroDeFilas,numeroDeColumnasObligatorias};
+  }
+
+    private static boolean isNumeric(String texto) {
+            try {
+                Integer.parseInt(texto);
+                return true;
+            } catch (NumberFormatException nfe){
+                return false;
+            }
+        }
+
 
     public static Partido[] cargarArchivoDeResultados (String archivo,int []dimension)throws IOException{
         int contadorFila = 0;
         Partido[] informacionArchivo = new Partido[dimension[0]-1];
 
-        // Lectura del archivo "resultados.csv" y almacenandolo en las clases Partido
+// Lectura del archivo "resultados.csv" y almacenandolo en las clases Partido
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
@@ -70,12 +115,12 @@ public class Main {
         int contadorFila = 0;
         Pronostico[] informacionArchivo = new Pronostico[dimension[0]-1];
 
-        // Lectura del archivo "pronostico.csv" recorriendolo y almacenandolo la informacion en clases
+// Lectura del archivo "pronostico.csv" recorriendolo y almacenandolo la informacion en clases
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
 
-              // Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
+// Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
               for(int i=0; i<resultadosdePartidos.length;i++) {
                   if (vectorAux[5].equals(resultadosdePartidos[i].idPartido)) {
                       informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
@@ -90,7 +135,6 @@ public class Main {
 
     public static void mostrarResultados(Pronostico[] pronosticos){
         String [] listaOrdenar= new String [pronosticos.length];
-
 // Extrae los nombres asociados a cada linea de pronosticos
         for (int i=0;i < pronosticos.length;i++)
         listaOrdenar[i] = pronosticos[i].Participante;
@@ -136,6 +180,7 @@ public class Main {
         for(int i=0;i<nombreParticipante.length;i++)
             System.out.println(nombreParticipante[i] + ": " + puntajeParticipante[i] + " puntos.");
     }
+
 }
 
 
