@@ -5,12 +5,17 @@ import tpi144g7.prode.enumeracion.ResultadoEnum;
 public class Pronostico {
     public Partido partido;
     public Equipo equipo;
+    public String idRonda;
+    public String Participante;
     public ResultadoEnum resultado;
 
-    // |    Equipo1    |     Gana1     |    Empata     |     Gana2     |    Equipo2    |  idPartido    |
-    // | prediccion[0] | prediccion[1] | prediccion[2] | prediccion[3] | prediccion[4] | prediccion[5] |
+
+    // |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|
+    // |prediccion[0]|prediccion[1]|prediccion[2]|prediccion[3]|prediccion[4]|prediccion[5]|prediccion[6]|prediccion[7]|
 
     public Pronostico(Partido partidoExistente, String[] prediccion) {
+        this.idRonda = prediccion[6];
+        this.Participante = prediccion[7];
         this.partido = partidoExistente;
         this.equipo = new Equipo("");
 
@@ -31,41 +36,24 @@ public class Pronostico {
         }
     }
 
-    public int puntos(){
-
-        if ((this.partido.golesEquipo1) > (this.partido.golesEquipo2))
-        {
-            if ((this.partido.equipo1.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR)))
-            {
-                return 1;
-            } else
-                {
-                return 0;
+    public int puntos() {
+        if (idRonda.equals(this.partido.idRonda)) { // Verifica si es la misma ronda
+            if ((this.partido.golesEquipo1) > (this.partido.golesEquipo2)) {
+                if ((this.partido.equipo1.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
+                    return 1;
                 }
-        } else
-            {
-                if ((this.partido.golesEquipo1) < (this.partido.golesEquipo2))
-                {
+            } else {
+                if ((this.partido.golesEquipo1) < (this.partido.golesEquipo2)) {
                     if ((this.partido.equipo2.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
                         return 1;
-                    } else
-                        {
-                         return 0;
-                        }
-                }else
-                   {
-                      if (this.resultado.equals(ResultadoEnum.EMPATE))
-                      {
+                    }
+                } else {
+                    if (this.resultado.equals(ResultadoEnum.EMPATE)) {
                         return 1;
-                      }else
-                         {
-                          return 0;
-                         }
-                   }
+                    }
+                }
             }
+        }
+        return 0;
     }
 }
-
-
-
-

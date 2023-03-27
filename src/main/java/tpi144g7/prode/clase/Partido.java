@@ -6,9 +6,11 @@ public class Partido {
     public int golesEquipo1;
     public int golesEquipo2;
     public String idPartido;
+    public String idRonda;
 
-    // |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |
-    // | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] |
+    // Archivo resultados.csv:
+    // |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |
+    // | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] | prediccion[5] |
 
     public Partido(String [] datoEntrada) {
         this.equipo1 = new Equipo(datoEntrada[0]);   // Creacion del objeto
@@ -16,6 +18,7 @@ public class Partido {
         this.golesEquipo1 = Integer.parseInt(datoEntrada[1]);
         this.golesEquipo2 = Integer.parseInt(datoEntrada[2]);
         this.idPartido = datoEntrada[4];
+        this.idRonda = datoEntrada[5];
     }
 
 }
