@@ -7,8 +7,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
-
 public class Main {
     public static void main(String[] args) throws IOException  {
         int [] dimensionResultado;
@@ -36,7 +34,6 @@ public class Main {
         dimensionResultado   = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
         dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
 
-
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
@@ -49,27 +46,34 @@ public class Main {
         int numeroDeFilas = 0;
         int errorArchivo = 0;
         int lineaLeida = 0;
-// Determina si los archivos existen y devuelve la cantidad de filas y columnas
-        if (Files.exists(Paths.get(archivo))) {
-            for (String ignored : Files.readAllLines(Paths.get(archivo))) numeroDeFilas++;
-        }else{
+// Determina si los archivos existen y devuelve el numero de registros que tiene cargado
+        if (!Files.exists(Paths.get(archivo))) {
             errorArchivo = 1;
-        }
+        } else {
+            for (String ignored : Files.readAllLines(Paths.get(archivo))) numeroDeFilas++;
+
 // Detrmina si el archivo tiene datos cargado y no solo la linea de encabezado
-        if (numeroDeFilas > 1)
+        if (numeroDeFilas > 1) {
+// Determina el numero de columnas de cada linea del archivo y si los campos de goles son valores numericos
             for (String texto : Files.readAllLines(Paths.get(archivo))) {
                 String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-// Determina el numero de columnas de cada linea del archivo y si los campos de goles son valores numericos
                 lineaLeida++;
-                if(lineaLeida>1){
-                    if (!(vectorAux.length == numeroDeColumnasObligatorias)) {errorArchivo = 2;}
+                if (lineaLeida > 1) {
+                    if (!(vectorAux.length == numeroDeColumnasObligatorias)) {
+                        errorArchivo = 2;
+                    }
 
-                    if (numeroDeColumnasObligatorias == 6) { //Si es 6 es el archivo de resultados
+                    if (numeroDeColumnasObligatorias == 6) { //Si es 6 es que estoy analizando el archivo de resultados
 // Determina si los goles son datos numericos
-                        if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {errorArchivo = 3;}
+                        if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {
+                            errorArchivo = 3;
+                        }
                     }
                 }
             }
+        } else {errorArchivo = 4;}
+    }
+
 // Manejo de error de lectura de archivo
         switch (errorArchivo) {
             case 1:
@@ -81,20 +85,13 @@ public class Main {
             case 3:
                 System.out.println("Error en la lectura de goles");
                 System.exit(0);
+            case 4:
+                System.out.println("El archivo no tiene datos a procesar");
+                System.exit(0);
         }
         
         return new int[]{numeroDeFilas,numeroDeColumnasObligatorias};
   }
-
-    private static boolean isNumeric(String texto) {
-            try {
-                Integer.parseInt(texto);
-                return true;
-            } catch (NumberFormatException nfe){
-                return false;
-            }
-        }
-
 
     public static Partido[] cargarArchivoDeResultados (String archivo,int []dimension)throws IOException{
         int contadorFila = 0;
@@ -181,7 +178,13 @@ public class Main {
             System.out.println(nombreParticipante[i] + ": " + puntajeParticipante[i] + " puntos.");
     }
 
+    private static boolean isNumeric(String texto) {
+        try {
+            Integer.parseInt(texto);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+    }
+
 }
-
-
-
