@@ -37,20 +37,23 @@ public class Pronostico {
     }
 
     public int puntos() {
-
-        if ((this.partido.golesEquipo1) > (this.partido.golesEquipo2)) {
-            if ((this.partido.equipo1.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {return 1;
+if (idRonda.equals(this.partido.idRonda)) { // Verifica si es la misma ronda
+    if ((this.partido.golesEquipo1) > (this.partido.golesEquipo2)) {
+        if ((this.partido.equipo1.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
+            return 1;
+        }
+    } else {
+        if ((this.partido.golesEquipo1) < (this.partido.golesEquipo2)) {
+            if ((this.partido.equipo2.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
+                return 1;
             }
         } else {
-            if ((this.partido.golesEquipo1) < (this.partido.golesEquipo2)) {
-                if ((this.partido.equipo2.nombre.equals(this.equipo.nombre)) && (this.resultado.equals(ResultadoEnum.GANADOR))) {return 1;}
-            } else {
-                if (this.resultado.equals(ResultadoEnum.EMPATE)) {return 1;}
+            if (this.resultado.equals(ResultadoEnum.EMPATE)) {
+                return 1;
             }
         }
+    }
+}
         return 0;
     }
 }
-
-
-
