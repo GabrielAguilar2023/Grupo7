@@ -1,3 +1,3 @@
+# Comision 144
 # Grupo7
-Comision 144
-Argentina Programa 2023
+Curso de Programacion en Java. Argentina Programa 2023
