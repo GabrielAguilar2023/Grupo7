@@ -178,6 +178,7 @@ public class Main {
             System.out.println(nombreParticipante[i] + ": " + puntajeParticipante[i] + " puntos.");
     }
 
+
     private static boolean isNumeric(String texto) {
         try {
             Integer.parseInt(texto);
