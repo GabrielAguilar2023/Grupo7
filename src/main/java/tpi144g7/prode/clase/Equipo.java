@@ -2,7 +2,7 @@ package tpi144g7.prode.clase;
 
 public class Equipo {
    public String nombre;
-   public String descripcion;
+   private String descripcion;
 
     public Equipo(String nombre) {
         this.nombre = nombre;
@@ -17,11 +17,4 @@ public class Equipo {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 }

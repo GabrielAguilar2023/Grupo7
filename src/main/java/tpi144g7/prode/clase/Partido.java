@@ -20,5 +20,4 @@ public class Partido {
         this.idPartido = datoEntrada[4];
         this.idRonda = datoEntrada[5];
     }
-
 }
