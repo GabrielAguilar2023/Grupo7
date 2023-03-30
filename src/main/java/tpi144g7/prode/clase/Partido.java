@@ -1,6 +1,6 @@
 package tpi144g7.prode.clase;
 
-public class Partido {
+public class Partido implements Comparable <Partido> {
     public Equipo equipo1;     // Declaracion del Objeto
     public Equipo equipo2;     // Declaracion del Objeto
     public int golesEquipo1;
@@ -19,5 +19,14 @@ public class Partido {
         this.golesEquipo2 = Integer.parseInt(datoEntrada[2]);
         this.idPartido = datoEntrada[4];
         this.idRonda = datoEntrada[5];
+    }
+
+    public String getIdRonda() {
+        return idRonda;
+    }
+
+    @Override
+    public int compareTo(Partido o) {
+    return this.idRonda.compareTo(o.getIdRonda());
     }
 }

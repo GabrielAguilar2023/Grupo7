@@ -37,6 +37,7 @@ public class Main {
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
+            Ronda[] rondas = crearObjetosRonda(resultados);
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
             mostrarResultados(pronosticos);
         }
@@ -167,6 +168,45 @@ public class Main {
         for(int i=0;i<nombreParticipante.length;i++)
             System.out.println(nombreParticipante[i] + ": " + puntajeParticipante[i] + " puntos.");
     }
+
+    public static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
+        Ronda[] rondas = null;
+//Primero ordeno el vector de partidos por "idRonda"
+        Arrays.sort(partidosJugados);
+        int indiceDeRondas=0;
+//Determino el numero de rondas
+        int cantidadRondas = 1;
+        for (int i = 1; i < partidosJugados.length; i++)
+            if (!(partidosJugados[i].idRonda.equals(partidosJugados[i - 1].idRonda))) {
+                cantidadRondas++;
+            }
+//Creo el vector de objetos Ronda de la cantidad necesaria
+        rondas = new Ronda[cantidadRondas];
+//------ Comienza la carga del vector de Rondas
+        while (partidosJugados.length>0){
+        //Determino el numero de partidos por rondas
+            int cantpart = 0;
+            for (int i = 0; i < partidosJugados.length; i++) {
+                if (partidosJugados[i].idRonda.equals(partidosJugados[0].idRonda)) {
+                    cantpart = i + 1;
+                } else {
+                    break;
+                }
+            }
+//Creo vector de partidos de la misma Ronda
+            Partido[] SubPart = new Partido[cantpart];
+//Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda
+            rondas[indiceDeRondas] = new Ronda(Arrays.copyOfRange(partidosJugados, 0, cantpart),partidosJugados[0].idRonda);
+            indiceDeRondas++;
+//Quito los partidos de la ronda anterior, del vector de partidos jugados
+            partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);
+        }
+//-------Fin de la carga del vector de Rondas
+    System.out.println();
+    return rondas;
+
+    }
+
 
     private static boolean isNumeric(String texto) {
         try {

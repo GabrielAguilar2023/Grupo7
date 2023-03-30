@@ -19,7 +19,5 @@ public class PronosticoTest {
         Assertions.assertEquals(pronostico.puntos(),1);
         Assertions.assertEquals(pronostico.equipoElegido.getNombre(),partido.equipo2.getNombre());
         Assertions.assertEquals(pronostico.resultado, ResultadoEnum.GANADOR);
-
-
     }
 }
