@@ -37,7 +37,7 @@ public class Main {
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
-            Ronda[] rondas = crearObjetosRonda(resultados);
+ //           Ronda[] rondas = crearObjetosRonda(resultados);
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
             mostrarResultados(pronosticos);
         }
@@ -110,7 +110,7 @@ public class Main {
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
 // Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
                 for(int i=0; i<resultadosdePartidos.length;i++) {
-                    if (vectorAux[5].equals(resultadosdePartidos[i].idPartido)) {
+                    if ((vectorAux[5].equals(resultadosdePartidos[i].idPartido)) && (vectorAux[6].equals(resultadosdePartidos[i].idRonda))) {
                         informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
                         break;
                     }
@@ -202,12 +202,10 @@ public class Main {
             partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);
         }
 //-------Fin de la carga del vector de Rondas
-    System.out.println();
-    return rondas;
+        return rondas;
 
     }
-
-
+    // ------------------------------------------------------------------
     private static boolean isNumeric(String texto) {
         try {
             Integer.parseInt(texto);

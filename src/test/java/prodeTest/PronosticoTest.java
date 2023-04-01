@@ -10,14 +10,14 @@ import tpi144g7.prode.enumeracion.ResultadoEnum;
 @DisplayName("Test de la clase Pronostico")
 public class PronosticoTest {
 
-    @DisplayName("Prueba del metodo asignar puntaje de la clase Pronostico")
+    @DisplayName("Pronostico acertado: Gana Equipo 1 y se asigna puntaje")
     @Test
     public void pronosticoAciertoGanaEquipo1 (){
         Partido partido = new Partido(new String[]{"Angola", "2", "3", "Croacia", "3", "2"});
         Pronostico pronostico = new Pronostico (partido,new String[]{"Angola","","","X","Croacia","3","2","Juan"});
 
         Assertions.assertEquals(pronostico.puntos(),1);
-        Assertions.assertEquals(pronostico.equipoElegido.getNombre(),partido.equipo2.getNombre());
+        Assertions.assertEquals(pronostico.equipo.getNombre(),partido.equipo2.getNombre());
         Assertions.assertEquals(pronostico.resultado, ResultadoEnum.GANADOR);
     }
 }

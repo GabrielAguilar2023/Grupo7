@@ -25,8 +25,8 @@ public class Partido implements Comparable <Partido> {
         return idRonda;
     }
 
-    @Override
-    public int compareTo(Partido o) {
-    return this.idRonda.compareTo(o.getIdRonda());
+    @Override // Necesario para ordenar los array de tipo partido
+    public int compareTo(Partido ordenar) {
+    return this.idRonda.compareTo(ordenar.getIdRonda());
     }
 }
