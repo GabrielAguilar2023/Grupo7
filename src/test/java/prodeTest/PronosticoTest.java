@@ -17,7 +17,7 @@ public class PronosticoTest {
         Pronostico pronostico = new Pronostico (partido,new String[]{"Angola","","","X","Croacia","3","2","Juan"});
 
         Assertions.assertEquals(pronostico.puntos(),1);
-        Assertions.assertEquals(pronostico.equipo.getNombre(),partido.equipo2.getNombre());
-        Assertions.assertEquals(pronostico.resultado, ResultadoEnum.GANADOR);
+        Assertions.assertEquals(pronostico.getEquipo().getNombre(),partido.getEquipo2().getNombre());
+        Assertions.assertEquals(pronostico.getResultado(), ResultadoEnum.GANADOR);
     }
 }

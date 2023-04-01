@@ -1,8 +1,8 @@
 package tpi144g7.prode.clase;
 
 public class Ronda {
-    String nro;
-    Partido partidos[];
+    private String nro;
+    private Partido partidos[];
 
     public Ronda(String nro, Partido[] partido) {
         this.nro = nro;
@@ -10,8 +10,8 @@ public class Ronda {
     }
 
     public Ronda(Partido[] subPart,String nro) {
-        this.partidos=subPart;
-        this.nro=nro;
+        this.partidos = subPart;
+        this.nro = nro;
     }
 
     public int puntos(){

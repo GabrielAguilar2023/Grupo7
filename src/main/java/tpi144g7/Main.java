@@ -37,7 +37,7 @@ public class Main {
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
- //           Ronda[] rondas = crearObjetosRonda(resultados);
+            Ronda[] rondas = crearObjetosRonda(resultados);
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
             mostrarResultados(pronosticos);
         }
@@ -110,7 +110,7 @@ public class Main {
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
 // Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
                 for(int i=0; i<resultadosdePartidos.length;i++) {
-                    if ((vectorAux[5].equals(resultadosdePartidos[i].idPartido)) && (vectorAux[6].equals(resultadosdePartidos[i].idRonda))) {
+                    if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) && (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))) {
                         informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
                         break;
                     }
@@ -125,7 +125,7 @@ public class Main {
         String [] listaOrdenar= new String [pronosticos.length];
 // Extrae los nombres asociados a cada linea de pronosticos
         for (int i=0;i < pronosticos.length;i++)
-            listaOrdenar[i] = pronosticos[i].Participante;
+            listaOrdenar[i] = pronosticos[i].getParticipante();
         Arrays.sort(listaOrdenar); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
 //Determinar la cantidad de participantes
         int contador = 1;
@@ -148,7 +148,7 @@ public class Main {
         for (int j=0;j< nombreParticipante.length;j++) {
             int aciertos = 0;
             for (int i = 0; i < pronosticos.length; i++)
-                if (nombreParticipante[j].equals(pronosticos[i].Participante))
+                if (nombreParticipante[j].equals(pronosticos[i].getParticipante()))
                     aciertos += pronosticos[i].puntos();
             puntajeParticipante[j]=aciertos;
         }
@@ -177,7 +177,7 @@ public class Main {
 //Determino el numero de rondas
         int cantidadRondas = 1;
         for (int i = 1; i < partidosJugados.length; i++)
-            if (!(partidosJugados[i].idRonda.equals(partidosJugados[i - 1].idRonda))) {
+            if (!(partidosJugados[i].getIdRonda().equals(partidosJugados[i - 1].getIdRonda()))) {
                 cantidadRondas++;
             }
 //Creo el vector de objetos Ronda de la cantidad necesaria
@@ -187,7 +187,7 @@ public class Main {
         //Determino el numero de partidos por rondas
             int cantpart = 0;
             for (int i = 0; i < partidosJugados.length; i++) {
-                if (partidosJugados[i].idRonda.equals(partidosJugados[0].idRonda)) {
+                if (partidosJugados[i].getIdRonda().equals(partidosJugados[0].getIdRonda())) {
                     cantpart = i + 1;
                 } else {
                     break;
@@ -196,7 +196,7 @@ public class Main {
 //Creo vector de partidos de la misma Ronda
             Partido[] SubPart = new Partido[cantpart];
 //Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda
-            rondas[indiceDeRondas] = new Ronda(Arrays.copyOfRange(partidosJugados, 0, cantpart),partidosJugados[0].idRonda);
+            rondas[indiceDeRondas] = new Ronda(Arrays.copyOfRange(partidosJugados, 0, cantpart),partidosJugados[0].getIdRonda());
             indiceDeRondas++;
 //Quito los partidos de la ronda anterior, del vector de partidos jugados
             partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);

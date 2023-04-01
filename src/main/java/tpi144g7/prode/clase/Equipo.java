@@ -1,7 +1,7 @@
 package tpi144g7.prode.clase;
 
 public class Equipo {
-   public String nombre;
+   private String nombre;
    private String descripcion;
 
     public Equipo(String nombre) {
