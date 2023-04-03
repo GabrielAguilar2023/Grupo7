@@ -29,23 +29,19 @@ public class Main {
             System.out.println("Directorio donde se encuentra el archivo pronosticos.csv: ");
             archivoPronosticos = CapturaArchivo.nextLine()+"\\pronosticos.csv";
         }
-
 // Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
         dimensionResultado   = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
         dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
-
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
             var rondas = crearObjetosRonda(resultados);
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
             CrearObjetosParticipantes(pronosticos);
-
-
         }
     }
 
-    public static int[] analizarArchivos (String archivo,int numeroDeColumnasObligatorias) throws IOException {
+    private static int[] analizarArchivos (String archivo,int numeroDeColumnasObligatorias) throws IOException {
         int numeroDeFilas = 0;
         int errorArchivo = 0;
         int lineaLeida = 0;
@@ -88,10 +84,9 @@ public class Main {
         return new int[]{numeroDeFilas,numeroDeColumnasObligatorias};
     }
 
-    public static Partido[] cargarArchivoDeResultados (String archivo,int []dimension)throws IOException{
+    private static Partido[] cargarArchivoDeResultados (String archivo,int []dimension)throws IOException{
         int contadorFila = 0;
         Partido[] informacionArchivo = new Partido[dimension[0]-1];
-
 // Lectura del archivo "resultados.csv" y almacenandolo en las clases Partido
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
@@ -100,11 +95,11 @@ public class Main {
             }
             contadorFila++;
         }
-    //    crearObjetosRonda(informacionArchivo);
+//    crearObjetosRonda(informacionArchivo);
         return informacionArchivo;
     }
 
-    public static Pronostico[] cargarArchivoDePronosticos(String archivo,int []dimension, Partido[] resultadosdePartidos) throws IOException {
+    private static Pronostico[] cargarArchivoDePronosticos(String archivo,int []dimension, Partido[] resultadosdePartidos) throws IOException {
         int contadorFila = 0;
         Pronostico[] informacionArchivo = new Pronostico[dimension[0]-1];
 // Lectura del archivo "pronostico.csv" recorriendolo y almacenandolo la informacion en clases
@@ -124,11 +119,9 @@ public class Main {
         return informacionArchivo;
     }
 
-    public static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
+    private static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
         Ronda[] rondas = null;
-        //Primero ordeno el vector de partidos por "idRonda"
- //       System.out.println();
-       System.out.println("------ Informacion del Campeonato ------");
+//Primero ordeno el vector de partidos por "idRonda"
         Arrays.sort(partidosJugados);
         int indiceDeRondas=0;
 //Determino el numero de rondas
@@ -160,7 +153,7 @@ public class Main {
         return rondas;
     }
 
-    public static void CrearObjetosParticipantes(Pronostico[] pronosticos) {
+    private static void CrearObjetosParticipantes(Pronostico[] pronosticos) {
     String[] listaOrdenar = new String[pronosticos.length];
     Participante [] participantes;
 //Extrae los nombres asociados a cada linea de pronosticos
@@ -217,14 +210,14 @@ public class Main {
                 }
             }
         }
-    //Impresion de los resultados ordenados de mayor a menor
+//Impresion de los resultados ordenados de mayor a menor
         System.out.println("-------------- Puntajes ----------------");
         for(int i=0;i<participantes.length;i++)
-            System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos." + " con " +participantes[i].getAciertos().size()+  " aciertos");
+            System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos." + " con " +participantes[i].getAciertos().length+  " aciertos");
         System.out.println("----------------------------------------");
     }
 
-    // ------------------------------------------------------------------
+// ---------------------------------------------------------------
     private static boolean isNumeric(String texto) {
         try {
             Integer.parseInt(texto);
