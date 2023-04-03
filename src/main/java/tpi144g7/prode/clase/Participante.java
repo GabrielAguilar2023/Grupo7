@@ -21,13 +21,25 @@ public class Participante {
         this.aciertos= matriz;
     }
 
-    public String[][] getAciertos() { return aciertos; }
+    public String[][] getAciertos() {return aciertos;}
 
     public void setPuntaje(int puntaje) {this.puntaje = puntaje;}
 
     public String getNombre() {return nombre;}
 
-    public int getPuntaje() {return puntaje; }
+    public int getPuntaje() {return puntaje;}
 
-    public Participante(String nombre) { this.nombre = nombre;}
+//****** CONSTRUCTOR *******
+    public Participante(String nombre) {this.nombre = nombre;}
+
+    public int aciertosPorRonda (String ronda){
+        int aciertos=0;
+        for (int i=0;i<this.aciertos.length;i++){
+            if ((this.aciertos[i][1]).equals(ronda)) {
+             aciertos++;
+            }
+        }
+    return aciertos;
+    }
+
 }

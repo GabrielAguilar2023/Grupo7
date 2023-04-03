@@ -34,10 +34,15 @@ public class Main {
         dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
+//Creacion de todos los Objetos necesarios para el proceso
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
             var rondas = crearObjetosRonda(resultados);
+            for (int i=0; i<rondas.length;i++)
+                rondas[i].infoRonda();
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
-            CrearObjetosParticipantes(pronosticos);
+            var participantes =CrearObjetosParticipantes(pronosticos);
+//-------------------------------------------------------
+            imprimirRankingDeAciertos(participantes);
         }
     }
 
@@ -132,8 +137,15 @@ public class Main {
             }
 //Creo el vector de objetos Ronda de la cantidad necesaria
         rondas = new Ronda[cantidadRondas];
+
 //------ Comienza la carga del vector de Rondas
         while (partidosJugados.length>0){
+
+        if(indiceDeRondas>0)
+            rondas[indiceDeRondas-1].setRondaJugada(true);  //********* Prueba
+
+
+
 //Determino el numero de partidos por rondas
             int cantpart = 0;
             for (int i = 0; i < partidosJugados.length; i++) {
@@ -145,6 +157,7 @@ public class Main {
             }
 //Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda
             rondas[indiceDeRondas] = new Ronda(Arrays.copyOfRange(partidosJugados, 0, cantpart),partidosJugados[0].getIdRonda());
+
             indiceDeRondas++;
 //Quito los partidos de la ronda anterior, del vector de partidos jugados
             partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);
@@ -153,7 +166,7 @@ public class Main {
         return rondas;
     }
 
-    private static void CrearObjetosParticipantes(Pronostico[] pronosticos) {
+    private static Participante[] CrearObjetosParticipantes(Pronostico[] pronosticos) {
     String[] listaOrdenar = new String[pronosticos.length];
     Participante [] participantes;
 //Extrae los nombres asociados a cada linea de pronosticos
@@ -197,7 +210,7 @@ public class Main {
             participantes[j].setAciertos(pasarAciertos);
             participantes[j].setPuntaje(puntajeDeAciertos);
         }
-    imprimirRankingDeAciertos(participantes);
+    return participantes;
     }
 
     private static void imprimirRankingDeAciertos(Participante[] participantes){
