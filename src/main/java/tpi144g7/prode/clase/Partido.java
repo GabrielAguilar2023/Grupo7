@@ -2,7 +2,7 @@ package tpi144g7.prode.clase;
 
 import tpi144g7.prode.enumeracion.ResultadoEnum;
 
-public class Partido implements Comparable <Partido> {
+public class Partido implements Comparable <Partido> { // implements Comparable para poder ordenar el vector de partidos en el main
     private Equipo equipo1;     // Declaracion del Objeto
     private Equipo equipo2;     // Declaracion del Objeto
     private int golesEquipo1;

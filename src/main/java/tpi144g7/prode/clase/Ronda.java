@@ -4,18 +4,15 @@ public class Ronda {
     private String nro;
     private Partido partidos[];
 
-    public Ronda(String nro, Partido[] partido) {
-        this.nro = nro;
-        this.partidos = partido;
-    }
-
-    public Ronda(Partido[] subPart,String nro) {
-        this.partidos = subPart;
+    public Ronda(Partido[] PartidosDeRonda,String nro) {
+        this.partidos = PartidosDeRonda;
         this.nro = nro;
     }
 
     public int puntos(){
-        return 0;
+for (int i=0;i<this.partidos.length;i++)
+    System.out.println(this.partidos[i].getIdPartido() + " " + this.partidos[i].getIdRonda());
+        return 1;
 //todo
     }
 }
