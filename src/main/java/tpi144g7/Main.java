@@ -37,8 +37,6 @@ public class Main {
 //Creacion de todos los Objetos necesarios para el proceso
             var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
             var rondas = crearObjetosRonda(resultados);
-            for (int i=0; i<rondas.length;i++)
-                rondas[i].infoRonda();
             var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
             var participantes =CrearObjetosParticipantes(pronosticos);
 //-------------------------------------------------------
@@ -137,15 +135,11 @@ public class Main {
             }
 //Creo el vector de objetos Ronda de la cantidad necesaria
         rondas = new Ronda[cantidadRondas];
-
 //------ Comienza la carga del vector de Rondas
         while (partidosJugados.length>0){
 
         if(indiceDeRondas>0)
             rondas[indiceDeRondas-1].setRondaJugada(true);  //********* Prueba
-
-
-
 //Determino el numero de partidos por rondas
             int cantpart = 0;
             for (int i = 0; i < partidosJugados.length; i++) {
@@ -224,14 +218,15 @@ public class Main {
             }
         }
 //Impresion de los resultados ordenados de mayor a menor
-        System.out.println("-------------- Puntajes ----------------");
+        System.out.println();
+        System.out.println("------------ Puntajes --------------");
         for(int i=0;i<participantes.length;i++)
-            System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos." + " con " +participantes[i].getAciertos().length+  " aciertos");
-        System.out.println("----------------------------------------");
+            System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos," + " con " +participantes[i].getAciertos().length+  " aciertos");
+        System.out.println("------------------------------------");
     }
 
-// ---------------------------------------------------------------
     private static boolean isNumeric(String texto) {
+// Metodo utilizado para determinar si un String contiene dato numerico
         try {
             Integer.parseInt(texto);
             return true;

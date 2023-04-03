@@ -14,6 +14,7 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
     // |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |
     // | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] | prediccion[5] |
 
+//****** CONSTRUCTOR *******
     public Partido(String [] datoEntrada) {
         this.equipo1 = new Equipo(datoEntrada[0]);   // Creacion del objeto
         this.equipo2 = new Equipo(datoEntrada[3]);   // Creacion del Objeto
@@ -22,15 +23,15 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
         this.idPartido = datoEntrada[4];
         this.idRonda = datoEntrada[5];
     }
+
     public ResultadoEnum resultado (Equipo equipoElegido){
         return ResultadoEnum.GANADOR;
     }
+
     @Override // Necesario para ordenar los array de tipo partido
     public int compareTo(Partido ordenar) {
     return this.idRonda.compareTo(ordenar.getIdRonda());
     }
-
-//** Geters**
 
     public Equipo getEquipo2() {
         return equipo2;

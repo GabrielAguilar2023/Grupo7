@@ -14,7 +14,7 @@ public class Pronostico {
     // |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|
     // |prediccion[0]|prediccion[1]|prediccion[2]|prediccion[3]|prediccion[4]|prediccion[5]|prediccion[6]|prediccion[7]|
 
-//** CONSTRUCTOR **
+//****** CONSTRUCTOR *******
     public Pronostico(Partido PartidoPronosticado, String[] prediccion) {
         this.idRonda = prediccion[6];
         this.Participante = prediccion[7];

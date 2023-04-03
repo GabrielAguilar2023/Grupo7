@@ -8,6 +8,9 @@ public class Participante {
     private int puntaje;
     private String [][] aciertos; // [0] idPartido  [1] idRonda  [2] EquipoApostado  [3] Resultado
 
+//****** CONSTRUCTOR *******
+    public Participante(String nombre) {this.nombre = nombre;}
+
     public void setAciertos(ArrayList <String> aciertos) {
 //Convierte <lista> a matriz de aciertos
         String [][] matriz = new String[aciertos.size()][4];
@@ -28,9 +31,6 @@ public class Participante {
     public String getNombre() {return nombre;}
 
     public int getPuntaje() {return puntaje;}
-
-//****** CONSTRUCTOR *******
-    public Participante(String nombre) {this.nombre = nombre;}
 
     public int aciertosPorRonda (String ronda){
         int aciertos=0;
