@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) throws IOException  {
         int [] dimensionResultado;
         int [] dimensionPronosticos;
-        int numeroFijoDeColumnasResultados=6;
-        int numeroFijoDeColumnasPronosticos=8;
+        int numeroFijoDeColumnasResultados=7;
+        int numeroFijoDeColumnasPronosticos=10;
         String archivoResultados;
         String archivoPronosticos;
         Scanner CapturaArchivo = new Scanner(System.in);
@@ -35,10 +35,10 @@ public class Main {
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
 //Creacion de todos los Objetos necesarios para el proceso
-            var resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
-            var rondas = crearObjetosRonda(resultados);
-            var pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
-            var participantes =CrearObjetosParticipantes(pronosticos);
+            Partido[] resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
+            Ronda[] rondas = crearObjetosRonda(resultados);
+            Pronostico[] pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
+            Participante[] participantes =CrearObjetosParticipantes(pronosticos);
 //-------------------------------------------------------
             imprimirRankingDeAciertos(participantes);
         }
@@ -59,10 +59,14 @@ public class Main {
                     String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
                     lineaLeida++;
                     if (lineaLeida > 1) {
-                        if (!(vectorAux.length == numeroDeColumnasObligatorias)) {errorArchivo = 2;}
-                        if (numeroDeColumnasObligatorias == 6) { //Si es 6 es que estoy analizando el archivo de resultados
+                        if (!(vectorAux.length == numeroDeColumnasObligatorias)) { errorArchivo = 2; }
+                        else{
+                            if (numeroDeColumnasObligatorias == 6) { //Si es 6 es que estoy analizando el archivo de resultados
 // Determina si los goles son datos numericos
-                            if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {errorArchivo = 3;}
+                                if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {
+                                    errorArchivo = 3;
+                                }
+                            }
                         }
                     }
                 }
@@ -83,7 +87,6 @@ public class Main {
                 System.out.println("El archivo no tiene datos a procesar");
                 System.exit(0);
         }
-
         return new int[]{numeroDeFilas,numeroDeColumnasObligatorias};
     }
 
