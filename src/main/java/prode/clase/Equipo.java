@@ -1,4 +1,4 @@
-package tpi144g7.prode.clase;
+package prode.clase;
 
 public class Equipo {
    private String nombre;

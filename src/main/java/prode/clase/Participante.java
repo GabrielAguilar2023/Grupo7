@@ -1,4 +1,4 @@
-package tpi144g7.prode.clase;
+package prode.clase;
 
 import java.util.ArrayList;
 

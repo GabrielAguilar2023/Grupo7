@@ -3,9 +3,9 @@ package prodeTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tpi144g7.prode.clase.Partido;
-import tpi144g7.prode.clase.Pronostico;
-import tpi144g7.prode.enumeracion.ResultadoEnum;
+import prode.clase.Partido;
+import prode.clase.Pronostico;
+import prode.enumeracion.ResultadoEnum;
 
 @DisplayName("Test de la clase Pronostico")
 public class PronosticoTest {

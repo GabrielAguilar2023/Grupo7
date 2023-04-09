@@ -3,7 +3,7 @@ package prodeTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tpi144g7.prode.clase.Partido;
+import prode.clase.Partido;
 
     @DisplayName("Conjunto de tests relativos a la clase Partidos")
     public class PartidoTest {

@@ -1,6 +1,6 @@
-package tpi144g7;
+package prode;
 
-import tpi144g7.prode.clase.*;
+import prode.clase.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
