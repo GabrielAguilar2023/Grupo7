@@ -27,6 +27,5 @@ public class Ronda {
             System.out.println("------ "+this.nro+"º Ronda no finalizada ----------");
         }
     }
-
 }
 

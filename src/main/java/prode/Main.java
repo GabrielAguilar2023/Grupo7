@@ -1,128 +1,50 @@
 package prode;
 
 import prode.clase.*;
+import static prode.configuracion.Inicializacion.*;
+import static prode.configuracion.LecturaArchivos.*;
+import static prode.configuracion.ConexionSQL.*;
+
+import java.sql.*;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException  {
-        int [] dimensionResultado;
-        int [] dimensionPronosticos;
-        int numeroFijoDeColumnasResultados=7;
-        int numeroFijoDeColumnasPronosticos=10;
-        String archivoResultados;
-        String archivoPronosticos;
-        Scanner CapturaArchivo = new Scanner(System.in);
+    public static void main(String[] args) throws IOException, SQLException {
+
 // Carga de Archivos por argumento: {"archivos.csv\resultados.csv","archivos.csv\pronosticos.csv"}
-        if (args.length==2) {
-            archivoResultados = args[0];
-            archivoPronosticos = args[1];
+        if (args.length > 0){
+            cargarArchivoDeConfiguracion(args[0]);
+            conexionMySql();
+
+            if (args.length == 3) {
+                archivoResultados  = args[1];
+                archivoPronosticos = args[2];
+            }
         }
         else{
 // Entrada de archivos por consola
+            System.out.println("**** CONFIGURACION POR DEFECTO *****");
             System.out.println("Directorio donde se encuentra el archivo resultados.csv: ");
-            archivoResultados = CapturaArchivo.nextLine()+"\\resultados.csv";
+            archivoResultados = capturaArchivo.nextLine()+"\\resultados.csv";
             System.out.println("Directorio donde se encuentra el archivo pronosticos.csv: ");
-            archivoPronosticos = CapturaArchivo.nextLine()+"\\pronosticos.csv";
+            archivoPronosticos = capturaArchivo.nextLine()+"\\pronosticos.csv";
         }
 // Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
         dimensionResultado   = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
         dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
-        if ((dimensionResultado[0]>1) && dimensionPronosticos[0]>1){
+        if ((dimensionResultado>1) && dimensionPronosticos>1){
 //Creacion de todos los Objetos necesarios para el proceso
-            Partido[] resultados  = cargarArchivoDeResultados(archivoResultados,dimensionResultado);
+            Partido[] resultados  = cargarArchivoDeResultados(archivoResultados);
             Ronda[] rondas = crearObjetosRonda(resultados);
-            Pronostico[] pronosticos = cargarArchivoDePronosticos(archivoPronosticos,dimensionPronosticos,resultados);
+            Pronostico[] pronosticos = cargarArchivoDePronosticos(archivoPronosticos,resultados);
             Participante[] participantes =CrearObjetosParticipantes(pronosticos);
 //-------------------------------------------------------
             imprimirRankingDeAciertos(participantes);
-        }
-    }
 
-    private static int[] analizarArchivos (String archivo,int numeroDeColumnasObligatorias) throws IOException {
-        int numeroDeFilas = 0;
-        int errorArchivo = 0;
-        int lineaLeida = 0;
-// Determina si los archivos existen y devuelve el numero de registros que tiene cargado
-        if (!Files.exists(Paths.get(archivo))) {errorArchivo = 1;}
-        else {
-            for (String ignored : Files.readAllLines(Paths.get(archivo))) numeroDeFilas++;
-// Detrmina si el archivo tiene datos cargado y no solo la linea de encabezado
-            if (numeroDeFilas > 1) {
-// Determina el numero de columnas de cada linea del archivo y si los campos de goles son valores numericos
-                for (String texto : Files.readAllLines(Paths.get(archivo))) {
-                    String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-                    lineaLeida++;
-                    if (lineaLeida > 1) {
-                        if (!(vectorAux.length == numeroDeColumnasObligatorias)) { errorArchivo = 2; }
-                        else{
-                            if (numeroDeColumnasObligatorias == 6) { //Si es 6 es que estoy analizando el archivo de resultados
-// Determina si los goles son datos numericos
-                                if (!(isNumeric(vectorAux[1]) && isNumeric(vectorAux[2]))) {
-                                    errorArchivo = 3;
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {errorArchivo = 4;}
         }
-// Manejo de error de lectura de archivo
-        switch (errorArchivo) {
-            case 1:
-                System.out.println("No se puede acceder al archivo --> " + archivo);
-                System.exit(0);
-            case 2:
-                System.out.println("Error en la informacion del archivo --> " + archivo);
-                System.exit(0);
-            case 3:
-                System.out.println("Error en la lectura de goles");
-                System.exit(0);
-            case 4:
-                System.out.println("El archivo no tiene datos a procesar");
-                System.exit(0);
-        }
-        return new int[]{numeroDeFilas,numeroDeColumnasObligatorias};
-    }
-
-    private static Partido[] cargarArchivoDeResultados (String archivo,int []dimension)throws IOException{
-        int contadorFila = 0;
-        Partido[] informacionArchivo = new Partido[dimension[0]-1];
-// Lectura del archivo "resultados.csv" y almacenandolo en las clases Partido
-        for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
-            String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-            if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
-                informacionArchivo[contadorFila-1]= new Partido(vectorAux);
-            }
-            contadorFila++;
-        }
-//    crearObjetosRonda(informacionArchivo);
-        return informacionArchivo;
-    }
-
-    private static Pronostico[] cargarArchivoDePronosticos(String archivo,int []dimension, Partido[] resultadosdePartidos) throws IOException {
-        int contadorFila = 0;
-        Pronostico[] informacionArchivo = new Pronostico[dimension[0]-1];
-// Lectura del archivo "pronostico.csv" recorriendolo y almacenandolo la informacion en clases
-        for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
-            String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
-            if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
-// Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
-                for(int i=0; i<resultadosdePartidos.length;i++) {
-                    if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) && (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))) {
-                        informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
-                        break;
-                    }
-                }
-            }
-            contadorFila++;
-        }
-        return informacionArchivo;
     }
 
     private static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
@@ -225,7 +147,8 @@ public class Main {
         System.out.println("------------ Puntajes --------------");
         for(int i=0;i<participantes.length;i++)
             System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos," + " con " +participantes[i].getAciertos().length+  " aciertos");
-        System.out.println("------------------------------------");
+        System.out.println("------------------------------------"+ configuracion[5]);
+
     }
 
     private static boolean isNumeric(String texto) {
