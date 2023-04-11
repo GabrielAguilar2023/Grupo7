@@ -32,10 +32,10 @@ public class Main {
             archivoPronosticos = capturaArchivo.nextLine()+"\\pronosticos.csv";
         }
 // Determina si los archivos existen y devuelve sus dimensiones (filas y columnas)
-        dimensionResultado   = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
-        dimensionPronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
+        filasDeResultados = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
+        filasDePronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
-        if ((dimensionResultado>1) && dimensionPronosticos>1){
+        if ((filasDeResultados >1) && filasDePronosticos >1){
 //Creacion de todos los Objetos necesarios para el proceso
             Partido[] resultados  = cargarArchivoDeResultados(archivoResultados);
             Ronda[] rondas = crearObjetosRonda(resultados);
@@ -147,7 +147,7 @@ public class Main {
         System.out.println("------------ Puntajes --------------");
         for(int i=0;i<participantes.length;i++)
             System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos," + " con " +participantes[i].getAciertos().length+  " aciertos");
-        System.out.println("------------------------------------"+ configuracion[5]);
+        System.out.println("------------------------------------");
 
     }
 

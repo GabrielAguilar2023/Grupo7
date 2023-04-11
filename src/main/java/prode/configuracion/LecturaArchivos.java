@@ -13,23 +13,28 @@ import java.util.Properties;
 
 public class LecturaArchivos {
 
-    public static void cargarArchivoDeConfiguracion(String arg) {
+    public static boolean cargarArchivoDeConfiguracion(String arg) {
        // String[] configuracion = new String[]{"1","0","","","","NO SQL"};
 
         try {
             Properties propiedadesDelProyecto = new Properties();
 //Carga el archivo en el objeto Properties
             propiedadesDelProyecto.load(new FileReader(arg));
-            configuracion[0] = propiedadesDelProyecto.getProperty("puntajePorPartidoGanado", "1");
-            configuracion[1] = propiedadesDelProyecto.getProperty("puntajeExtra", "0");
-            configuracion[2] = propiedadesDelProyecto.getProperty("mysql_url", "");
-            configuracion[3] = propiedadesDelProyecto.getProperty("mysql_user", "");
-            configuracion[4] = propiedadesDelProyecto.getProperty("mysql_password", "");
-// Si no hay info de SQL entonces <<configuracion [5]>> avisa que NO es posible conectar a base de datos
-            configuracion[5] = "NO SQL";
-            if (!(configuracion[2].isEmpty() || configuracion[3].isEmpty() || configuracion[4].isEmpty()))
-                configuracion[5] = "SI SQL";
-        } catch (Exception e){  System.out.println("No hay configuracion externa cargada...");}
+            puntajePorPartidoGanado = propiedadesDelProyecto.getProperty("puntajePorPartidoGanado", "1");
+            puntajeExtra = propiedadesDelProyecto.getProperty("puntajeExtra", "0");
+            mysql_url = propiedadesDelProyecto.getProperty("mysql_url", "");
+            mysql_user = propiedadesDelProyecto.getProperty("mysql_user", "");
+            mysql_password = propiedadesDelProyecto.getProperty("mysql_password", "");
+// Si no hay info de SQL entonces se avisa que no hay configuracion MySQL
+            if (!(mysql_url.isEmpty() || mysql_user.isEmpty() || mysql_password.isEmpty())) {
+                return true;
+            }else {
+                System.out.println("No hay configuracion MySQL");
+                return false;}
+        } catch (Exception e){
+            System.out.println("No hay configuracion externa cargada...");
+            return false;
+        }
     }
 
     public static int analizarArchivos(String archivo, int numeroDeColumnasObligatorias) throws IOException {
@@ -80,7 +85,7 @@ public class LecturaArchivos {
 
     public static Partido[] cargarArchivoDeResultados (String archivo)throws IOException{
         int contadorFila = 0;
-        Partido[] informacionArchivo = new Partido[dimensionResultado-1];
+        Partido[] informacionArchivo = new Partido[filasDeResultados -1];
 // Lectura del archivo "resultados.csv" y almacenandolo en las clases Partido
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
@@ -95,8 +100,8 @@ public class LecturaArchivos {
 
     public static Pronostico[] cargarArchivoDePronosticos(String archivo, Partido[] resultadosdePartidos) throws IOException {
         int contadorFila = 0;
-        Pronostico[] informacionArchivo = new Pronostico[dimensionPronosticos-1];
-// Lectura del archivo "pronostico.csv" recorriendolo y almacenandolo la informacion en clases
+        Pronostico[] informacionArchivo = new Pronostico[filasDePronosticos -1];
+// Lectura del archivo "pronostico.csv" recorriendolo y almacenando la informacion en clases
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla

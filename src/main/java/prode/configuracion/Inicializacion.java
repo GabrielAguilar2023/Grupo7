@@ -4,12 +4,17 @@ import java.util.Scanner;
 
 public class Inicializacion {
 //Indica la cantidad de filas de la tabla leida en el archivo resultados.csv
-    public static int dimensionResultado;
+    public static int filasDeResultados = 0;
 
 //Indica la cantidad de filas de la tabla leida en el archivo pronosticos.csv
-    public static int dimensionPronosticos;
+    public static int filasDePronosticos = 0;
+
 //Almacena los valores configurables de la aplicacion: puntos Extra, Puntaje por partido y configuracion del motor de base de datos
-    public static String[] configuracion = new String[]{"1","0","","","","NO SQL"};
+    public static String puntajePorPartidoGanado="1";
+    public static String puntajeExtra ="0";
+    public static String mysql_url="";
+    public static String mysql_user ="";
+    public static String mysql_password="";
 
 //Autodefinidas
     public static int numeroFijoDeColumnasResultados = 7;
