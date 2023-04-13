@@ -14,6 +14,8 @@ import java.util.Properties;
 public class LecturaArchivos {
 
     public static boolean cargarArchivoDeConfiguracion(String arg) {
+        // todo --> Es archivo .properties??
+
        // String[] configuracion = new String[]{"1","0","","","","NO SQL"};
 
         try {
@@ -21,18 +23,33 @@ public class LecturaArchivos {
 //Carga el archivo en el objeto Properties
             propiedadesDelProyecto.load(new FileReader(arg));
             puntajePorPartidoGanado = propiedadesDelProyecto.getProperty("puntajePorPartidoGanado", "1");
-            puntajeExtra = propiedadesDelProyecto.getProperty("puntajeExtra", "0");
+            puntajeExtraPorRonda = propiedadesDelProyecto.getProperty("puntajeExtra", "0");
+            puntajeExtraPorFase =propiedadesDelProyecto.getProperty("puntajeExtraPorFase", "0");
             mysql_url = propiedadesDelProyecto.getProperty("mysql_url", "");
             mysql_user = propiedadesDelProyecto.getProperty("mysql_user", "");
             mysql_password = propiedadesDelProyecto.getProperty("mysql_password", "");
+            campeonatoFinalizado = propiedadesDelProyecto.getProperty("campeonatoFinalizado","NO");
+
+            if ((puntajePorPartidoGanado.equals("1") &&
+                    puntajeExtraPorRonda.equals("0") &&
+                    puntajeExtraPorFase.equals("0"))) {
+                System.out.println("\n **** CONFIGURACION POR DEFECTO ****\n");
+            }else{
+                System.out.println("\n************* CONFIGURACION ************");
+                System.out.println("Acierto = " + puntajePorPartidoGanado + " puntos");
+                System.out.println("Ronda completa acertada = " + puntajeExtraPorRonda + " puntos extras.");
+                System.out.println("Aciertos sobre equipos por fase = " + puntajeExtraPorFase + " puntos extras.");
+                System.out.println("****************************************");
+
+            }
 // Si no hay info de SQL entonces se avisa que no hay configuracion MySQL
             if (!(mysql_url.isEmpty() || mysql_user.isEmpty() || mysql_password.isEmpty())) {
                 return true;
             }else {
-                System.out.println("No hay configuracion MySQL");
+                System.out.println("\n**** No hay configuracion MySQL ****");
                 return false;}
         } catch (Exception e){
-            System.out.println("No hay configuracion externa cargada...");
+            System.out.println("\nNo hay configuracion externa cargada...");
             return false;
         }
     }

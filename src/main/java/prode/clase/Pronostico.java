@@ -10,8 +10,10 @@ public class Pronostico {
     private ResultadoEnum resultado;
     private int puntosPorCadaAcierto;
 
-
-    // |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|
+    public void setPuntosPorCadaAcierto(int puntosPorCadaAcierto) {
+        this.puntosPorCadaAcierto = puntosPorCadaAcierto;
+    }
+// |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|
     // |prediccion[0]|prediccion[1]|prediccion[2]|prediccion[3]|prediccion[4]|prediccion[5]|prediccion[6]|prediccion[7]|
 
 //****** CONSTRUCTOR *******
