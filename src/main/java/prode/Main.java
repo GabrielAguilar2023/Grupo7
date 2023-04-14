@@ -46,6 +46,7 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                 cargarArchivoDeConfiguracion(args[0]);
                 archivoResultados= args[1];
                 archivoPronosticos=args[2];
+                System.out.println("\n** Pronostico desde los archivos .scv **");
             }
         }
 
@@ -79,13 +80,16 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         Ronda[] rondas = null;
 //Primero ordeno el vector de partidos por "idRonda"
         Arrays.sort(partidosJugados);
-        int indiceDeRondas=0;
+        int indiceDeRondas = 0;
 //Determino el numero de rondas
         int cantidadRondas = 1;
-        for (int i = 1; i < partidosJugados.length; i++)
-            if (!(partidosJugados[i].getIdRonda().equals(partidosJugados[i - 1].getIdRonda()))) {
+        for (int i = 1; i < partidosJugados.length; i++){
+            boolean idRonda= (partidosJugados[i].getIdRonda().equals(partidosJugados[i - 1].getIdRonda()));
+            boolean idFase = (partidosJugados[i].getIdFase().equals(partidosJugados[i-1].getIdFase()) );
+            if (!(idRonda && idFase)) {
                 cantidadRondas++;
             }
+    }
 //Creo el vector de objetos Ronda de la cantidad necesaria
         rondas = new Ronda[cantidadRondas];
 //------ Comienza la carga del vector de Rondas
@@ -96,7 +100,9 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
 //Determino el numero de partidos por rondas
             int cantpart = 0;
             for (int i = 0; i < partidosJugados.length; i++) {
-                if (partidosJugados[i].getIdRonda().equals(partidosJugados[0].getIdRonda())) {
+            boolean idRonda= partidosJugados[i].getIdRonda().equals(partidosJugados[0].getIdRonda());
+            boolean idFase = partidosJugados[i].getIdFase().equals(partidosJugados[0].getIdFase());
+                if (idRonda && idFase) {
                     cantpart = i + 1;
                 } else {
                     break;
@@ -110,7 +116,8 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
             partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);
         }
 //Cerrar la ronda si el archivo de configuracion indica que el campeonato finalizo
-        if (campeonatoFinalizado.equals("SI")){rondas[indiceDeRondas-1].setRondaJugada(true);}
+        if (campeonatoFinalizado.equals("SI")){
+            rondas[indiceDeRondas-1].setRondaJugada(true);}
 //-------Fin de la carga del vector de Rondas
         return rondas;
     }
@@ -127,7 +134,7 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         for (int i = 1; i < listaOrdenar.length; i++)
             if (!listaOrdenar[i].equals(listaOrdenar[i - 1]))
                 contador++;
-//Crea objeto participante
+//Crea un arreglo de objeto participante
         participantes = new Participante[contador];
         int[][] puntajeParticipante = new int[contador][2];
         participantes[0] = new Participante(listaOrdenar[0]); //Asigna el primer participante a la lista y comienza a comparar
@@ -142,6 +149,8 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         }
 //Asigna puntaje a cada participante
         for (int j = 0; j < participantes.length; j++) {
+//Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
+            participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorFase));
             ArrayList <String> pasarAciertos = new ArrayList<>();
             int puntajeDeAciertos = 0;
             int cantidadDeAciertos = 0;
@@ -174,10 +183,10 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         }
 //Impresion de los resultados ordenados de mayor a menor
         System.out.println();
-        System.out.println("------------ Puntajes --------------");
+        System.out.println("--------------- PUNTAJES ---------------\n");
         for(int i=0;i<participantes.length;i++)
-            System.out.println(participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos," + " con " +participantes[i].getAciertos().length+  " aciertos");
-        System.out.println("------------------------------------");
+            System.out.println(i+1 +"º --> " + participantes[i].getNombre() + ": " + participantes[i].getPuntaje() + " puntos," + " con " +participantes[i].getAciertos().length+  " aciertos");
+        System.out.println("\n----------------------------------------");
 
     }
 

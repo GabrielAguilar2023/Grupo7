@@ -7,6 +7,7 @@ public class Participante {
     private String idParticipante;
     private int puntaje;
     private String [][] aciertos; // [0] idPartido  [1] idRonda  [2] EquipoApostado  [3] Resultado
+    private int puntajeRonda;
 
 //****** CONSTRUCTOR *******
     public Participante(String nombre) {this.nombre = nombre;}
@@ -27,6 +28,11 @@ public class Participante {
     public String[][] getAciertos() {return aciertos;}
 
     public void setPuntaje(int puntaje) {this.puntaje = puntaje;}
+
+    public void setPuntajeRonda(int puntajeRonda) {
+        this.puntajeRonda = puntajeRonda;
+    System.out.println("Puntaje por ronda completa = "+this.puntajeRonda);
+    }
 
     public String getNombre() {return nombre;}
 

@@ -1,9 +1,65 @@
-Equipo 1;Cant. Goles 1;Cant. Goles 2;Equipo 2;idPartido;idRonda;idFase
-Argentina;2;1;Australia;7;2;2
-Argentina;1;2;Arabia Saudita;1;1;1
-Mexico;0;0;Polonia;2;1;1
-Argentina;2;0;Mexico;3;1;1
-Polonia;2;0;Arabia Saudita;4;1;1
-Polonia;0;2;Argentina;5;1;1
-Arabia Saudita;1;2;Mexico;6;1;1
-Argentina;2;2;Paises Bajos;8;3;1
+Equipo 1;Cant. Goles 1;Cant. Goles 2;Equipo 2;idPartido;idRonda;idFase;;;;;
+Qatar;0;2;Ecuador;1;1;1;;;;;
+Senegal;0;2;Paises Bajos;2;1;1;;;;;
+Qatar;0;2;Senegal;3;1;1;;;;;
+Paises Bajos;0;1;Ecuador;4;1;1;;;;;
+Paises Bajos;2;0;Qatar;5;1;1;;;;;
+Ecuador;1;2;Senegal;6;1;1;;;;;
+Inglaterra;6;2;Iran;7;1;1;;;;;
+Estados Unidos;1;1;Gales;8;1;1;;;;;
+Inglaterra;0;0;Estados Unidos;9;1;1;;;;;
+Gales;0;2;Iran;10;1;1;;;;;
+Gales;0;3;Inglaterra;11;1;1;;;;;
+Iran;0;1;Estados Unidos;12;1;1;;;;;
+Argentina;1;2;Arabia Saudita;13;1;1;;;;;
+Mexico;0;0;Polonia;14;1;1;;;;;
+Argentina;2;0;Mexico;15;1;1;;;;;
+Polonia;2;0;Arabia Saudita;16;1;1;;;;;
+Polonia;0;2;Argentina;17;1;1;;;;;
+Arabia Saudita;1;2;Mexico;18;1;1;;;;;
+Francia;4;1;Australia;19;1;1;;;;;
+Dinamarca;0;0;Tunez;20;1;1;;;;;
+Francia;2;1;Dinamarca;21;1;1;;;;;
+Tunez;0;1;Australia;22;1;1;;;;;
+Tunez;1;0;Francia;23;1;1;;;;;
+Australia;1;0;Dinamarca;24;1;1;;;;;
+Espana;7;0;Costa Rica;25;1;1;;;;;
+Alemania;1;2;Japon;26;1;1;;;;;
+Espana;1;1;Alemania;27;1;1;;;;;
+Japon;0;1;Costa Rica;28;1;1;;;;;
+Japon;2;1;Espana;29;1;1;;;;;
+Costa Rica;2;4;Alemania;30;1;1;;;;;
+Belgica;1;0;Canada;31;1;1;;;;;
+Marruecos;0;0;Croacia;32;1;1;;;;;
+Belgica;0;2;Marruecos;33;1;1;;;;;
+Croacia;4;1;Canada;34;1;1;;;;;
+Croacia;0;0;Belgica;35;1;1;;;;;
+Canada;1;2;Marruecos;36;1;1;;;;;
+Brasil;2;0;Serbia;37;1;1;;;;;
+Suiza;1;0;Camerun;38;1;1;;;;;
+Brasil;1;0;Suiza;39;1;1;;;;;
+Camerun ;3;3;Serbia;40;1;1;;;;;
+Camerun ;1;0;Brasil;41;1;1;;;;;
+Serbia;2;3;Suiza;42;1;1;;;;;
+Portugal;3;2;Ghana;43;1;1;;;;;
+Uruguay;0;0;Corea del Sur;44;1;1;;;;;
+Portugal;2;0;Uruguay;45;1;1;;;;;
+Corea del Sur;2;3;Ghana;46;1;1;;;;;
+Corea del Sur;2;1;Portugal;47;1;1;;;;;
+Ghana;0;2;Uruguay;48;1;1;;;;;
+Paises Bajos;3;1;Estados Unidos;1;1;2;;;;;
+Argentina;2;1;Australia;2;1;2;;;;;
+Inglaterra;3;0;Senegal;3;1;2;;;;;
+Francia;3;1;Polonia;4;1;2;;;;;
+Japon;1;1;Croacia;5;1;2;;;;;
+Brasil;4;1;Corea del Sur;6;1;2;;;;;
+Marruecos;0;0;Espana;7;1;2;;;;;
+Portugal;6;1;Suiza;8;1;2;;;;;
+Croacia;1;1;Brasil;1;2;2;;;;;
+Paises Bajos;2;2;Argentina;2;2;2;;;;;
+Marruecos;1;0;Portugal;3;2;2;;;;;
+Inglaterra;1;2;Francia;4;2;2;;;;;
+Argentina;2;0;Croacia;1;3;2;;;;;
+Francia;2;0;Marruecos;2;3;2;;;;;
+Croacia;2;1;Marruecos;1;4;2;;;;;
+Argentina;3;3;Francia;2;4;2;;;;;

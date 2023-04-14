@@ -27,7 +27,6 @@ public class ConexionSQL {
             System.out.println("\n Error de conexion a MySQL\n");
             return false;
        }
-
    }
 
     public static Pronostico[] cargarBaseDeDatosPronosticos(Partido[] resultadosdePartidos) throws SQLException {

@@ -9,10 +9,10 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
     private int golesEquipo2;
     private String idPartido;
     private String idRonda;
-
-    // Archivo resultados.csv:
-    // |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |
-    // | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] | prediccion[5] |
+    private String idFase;
+// Archivo resultados.csv:
+// |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |     idFase     |
+// | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] | prediccion[5] | prediccion [6] |
 
 //****** CONSTRUCTOR *******
     public Partido(String [] datoEntrada) {
@@ -22,6 +22,7 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
         this.golesEquipo2 = Integer.parseInt(datoEntrada[2]);
         this.idPartido = datoEntrada[4];
         this.idRonda = datoEntrada[5];
+        this.idFase = datoEntrada[6];
     }
 
     public ResultadoEnum resultado (Equipo equipoElegido){
@@ -57,4 +58,5 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
         return idRonda;
     }
 
+    public String getIdFase() {return idFase; }
 }

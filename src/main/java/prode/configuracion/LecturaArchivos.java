@@ -126,6 +126,7 @@ public class LecturaArchivos {
                 for(int i=0; i<resultadosdePartidos.length;i++) {
                     if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) && (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))) {
                         informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
+                        informacionArchivo[contadorFila-1].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPartidoGanado));
                         break;
                     }
                 }

@@ -1,19 +1,19 @@
 Equipo 1;Gana 1;Empata;Gana 2;Equipo 2;idPartido;idRonda;Participante;idFase;idPronostico
-Argentina;X;;;Arabia Saudita;1;1;Mariana;1;1
-Mexico;;X;;Polonia;2;1;Mariana;1;2
-Argentina;;X;;Mexico;3;1;Pedro;1;3
-Polonia;;;X;Arabia Saudita;4;1;Mariana;1;4
-Polonia;X;;;Argentina;5;1;Mariana;1;5
-Arabia Saudita;;;X;Mexico;6;1;Mariana;1;6
-Argentina;X;;;Arabia Saudita;1;1;Pedro;1;7
-Mexico;;;X;Polonia;2;1;Pedro;1;8
-Argentina;X;;;Mexico;3;1;Mariana;1;9
-Polonia;;;X;Arabia Saudita;4;1;Pedro;1;10
-Polonia;X;;;Argentina;5;1;Pedro;1;11
-Arabia Saudita;;;X;Mexico;6;1;Pedro;1;12
-Argentina;;;X;Arabia Saudita;1;1;Jorge;1;13
-Mexico;;X;;Polonia;2;1;Jorge;1;14
-Argentina;X;;;Mexico;3;1;Jorge;1;15
-Polonia;X;;;Arabia Saudita;4;1;Daniel;1;16
-Polonia;;;X;Argentina;5;1;Jorge;1;17
-Arabia Saudita;;;X;Mexico;6;1;Jorge;1;18
+Argentina;X;;;Arabia Saudita;13;1;Mariana;1;1
+Mexico;;X;;Polonia;14;1;Mariana;1;2
+Argentina;;X;;Mexico;15;1;Pedro;1;3
+Polonia;;;X;Arabia Saudita;16;1;Mariana;1;4
+Polonia;X;;;Argentina;17;1;Mariana;1;5
+Arabia Saudita;;;X;Mexico;18;1;Mariana;1;6
+Argentina;X;;;Arabia Saudita;13;1;Pedro;1;7
+Mexico;;;X;Polonia;14;1;Pedro;1;8
+Argentina;X;;;Mexico;15;1;Mariana;1;9
+Polonia;;;X;Arabia Saudita;16;1;Pedro;1;10
+Polonia;X;;;Argentina;17;1;Pedro;1;11
+Arabia Saudita;;;X;Mexico;18;1;Pedro;1;12
+Argentina;;;X;Arabia Saudita;13;1;Jorge;1;13
+Mexico;;X;;Polonia;14;1;Jorge;1;14
+Argentina;X;;;Mexico;15;1;Jorge;1;15
+Polonia;X;;;Arabia Saudita;16;1;Daniel;1;16
+Polonia;;;X;Argentina;17;1;Jorge;1;17
+Arabia Saudita;;;X;Mexico;18;1;Jorge;1;18
