@@ -56,15 +56,13 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((filasDeResultados >1) && filasDePronosticos >1){
 //Creacion de todos los Objetos necesarios para el proceso
+            //Procesamiento de los datos resultados
             Partido[] resultados  = cargarArchivoDeResultados(archivoResultados);
             Ronda[] rondas = crearObjetosRonda(resultados);
             for (int i=0;i<rondas.length;i++){
                 rondas[i].infoRonda();
             }
-
-
-
-
+            //Procesaiento de los datos pronosticos
             if (!mySql_OK) {
                 pronosticos = cargarArchivoDePronosticos(archivoPronosticos, resultados);
             }else {
@@ -72,8 +70,29 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
             }
             Participante[] participantes =CrearObjetosParticipantes(pronosticos);
 //-------------------------------------------------------
+            asignarPuntajeExtraPorRonda(rondas,participantes);
             imprimirRankingDeAciertos(participantes);
         }
+    }
+
+    private static Participante[] asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
+
+//Selecciono cada ronda
+       for (int i=0;i<rondas.length;i++){
+           String fase = rondas[i].getPartidos()[0].getIdFase();
+           int aciertosEnEstaRonda = 0;
+//Reviso si cada participante acerto toda la ronda.
+           for(int j=0;j<participantes.length;j++){
+               aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
+               var partidosDeEstaRonda = rondas[i].getPartidos().length;
+               if (aciertosEnEstaRonda==partidosDeEstaRonda){
+                   participantes[j].sumarPuntosExtrasRonda();
+                   System.out.println("Puntos extras");
+               }
+           }
+       }
+
+        return new Participante[0];
     }
 
     private static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
@@ -147,26 +166,30 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                     contador++;
                 }
         }
-//Asigna puntaje a cada participante
+//Comienza la etapa de  puntaje a cada participante
         for (int j = 0; j < participantes.length; j++) {
-//Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
-            participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorFase));
+
             ArrayList <String> pasarAciertos = new ArrayList<>();
             int puntajeDeAciertos = 0;
             int cantidadDeAciertos = 0;
+// Compara cada pronostico del participante "j" en cuestion
             for (int i = 0; i < pronosticos.length; i++) {
                 if (participantes[j].getNombre().equals(pronosticos[i].getParticipante())) {
                     int acierto = pronosticos[i].puntos();
                     puntajeDeAciertos += acierto;
-//Carga de informacion de aciertos de cada participante
+//Carga de informacion de aciertos en cada participante
                     if (acierto>0) {
-                        pasarAciertos.add(pronosticos[i].getPartido().getIdPartido()+";"+pronosticos[i].getPartido().getIdRonda()+";"+pronosticos[i].getEquipo().getNombre()+";"+pronosticos[i].getResultado());
+                        pasarAciertos.add(pronosticos[i].getPartido().getIdPartido()+";"+pronosticos[i].getPartido().getIdRonda()+
+                                          ";"+pronosticos[i].getIdFase()+";"+pronosticos[i].getEquipo().getNombre()+
+                                          ";"+pronosticos[i].getResultado());
                         cantidadDeAciertos++;
                     }
                 }
             }
             participantes[j].setAciertos(pasarAciertos);
             participantes[j].setPuntaje(puntajeDeAciertos);
+//Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
+            participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorFase));
         }
     return participantes;
     }

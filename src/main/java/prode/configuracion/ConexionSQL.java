@@ -43,7 +43,9 @@ public class ConexionSQL {
             }
 //Asociacion de los objetos Partido creados anteriormente con el archivo resultados a los objetos Pronostico"
             for(int i=0; i<resultadosdePartidos.length;i++) {
-                if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) && (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))) {
+                if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) &&
+                    (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda())) &&
+                    (vectorAux[8].equals(resultadosdePartidos[i].getIdFase()))) {
                     informacionArchivo[contadorFila] = new Pronostico(resultadosdePartidos[i], vectorAux);
                     informacionArchivo[contadorFila].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPartidoGanado));
                     break;

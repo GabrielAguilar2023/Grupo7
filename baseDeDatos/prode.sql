@@ -43,7 +43,7 @@ CREATE TABLE `pronosticos` (
 
 LOCK TABLES `pronosticos` WRITE;
 /*!40000 ALTER TABLE `pronosticos` DISABLE KEYS */;
-INSERT INTO `pronosticos` VALUES ('Argentina','X','','','Arabia Saudita',1,1,'Mariana',1,1),('Mexico','','X','','Polonia',2,1,'Mariana',1,2),('Argentina','','X','','Mexico',3,1,'Pedro',1,3),('Polonia','','','X','Arabia Saudita',4,1,'Mariana',1,4),('Polonia','X','','','Argentina',5,1,'Mariana',1,5),('Arabia Saudita','','','X','Mexico',6,1,'Mariana',1,6),('Argentina','X','','','Arabia Saudita',1,1,'Pedro',1,7),('Mexico','','','X','Polonia',2,1,'Pedro',1,8),('Argentina','X','','','Mexico',3,1,'Mariana',1,9),('Polonia','','','X','Arabia Saudita',4,1,'Pedro',1,10),('Polonia','X','','','Argentina',5,1,'Pedro',1,11),('Arabia Saudita','','','X','Mexico',6,1,'Pedro',1,12),('Argentina','','','X','Arabia Saudita',1,1,'Jorge',1,13),('Mexico','','X','','Polonia',2,1,'Jorge',1,14),('Argentina','X','','','Mexico',3,1,'Jorge',1,15),('Polonia','X','','','Arabia Saudita',4,1,'Daniel',1,16),('Polonia','','','X','Argentina',5,1,'Jorge',1,17),('Arabia Saudita','','','X','Mexico',6,1,'Jorge',1,18);
+INSERT INTO `pronosticos` VALUES ('Argentina','X','','','Arabia Saudita',13,1,'Mariana',1,1),('Mexico','','X','','Polonia',14,1,'Mariana',1,2),('Argentina','','X','','Mexico',15,1,'Pedro',1,3),('Polonia','','','X','Arabia Saudita',16,1,'Mariana',1,4),('Polonia','X','','','Argentina',17,1,'Mariana',1,5),('Arabia Saudita','','','X','Mexico',18,1,'Mariana',1,6),('Argentina','X','','','Arabia Saudita',13,1,'Pedro',1,7),('Mexico','','','X','Polonia',14,1,'Pedro',1,8),('Argentina','X','','','Mexico',15,1,'Mariana',1,9),('Polonia','','','X','Arabia Saudita',16,1,'Pedro',1,10),('Polonia','X','','','Argentina',17,1,'Pedro',1,11),('Arabia Saudita','','','X','Mexico',18,1,'Pedro',1,12),('Argentina','','','X','Arabia Saudita',13,1,'Jorge',1,13),('Mexico','','X','','Polonia',14,1,'Jorge',1,14),('Argentina','X','','','Mexico',15,1,'Jorge',1,15),('Polonia','X','','','Arabia Saudita',16,1,'Daniel',1,16),('Polonia','','','X','Argentina',17,1,'Jorge',1,17),('Arabia Saudita','','','X','Mexico',18,1,'Jorge',1,18),('Paises Bajos','X','','','Estados Unidos',1,1,'Gabriel',2,19),('Argentina','X','','','Australia',2,1,'Gabriel',2,20),('Inglaterra','X','','','Senegal',3,1,'Gabriel',2,21),('Francia','X','','','Polonia',4,1,'Gabriel',2,22),('Japon','','X','','Croacia',5,1,'Gabriel',2,23),('Brasil','X','','','Corea del Sur',6,1,'Gabriel',2,24),('Marruecos','','X','','Espana',7,1,'Gabriel',2,25),('Portugal','X','','','Suiza',8,1,'Gabriel',2,26);
 /*!40000 ALTER TABLE `pronosticos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-09 12:53:59
+-- Dump completed on 2023-04-15  0:26:27

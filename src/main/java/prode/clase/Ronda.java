@@ -15,6 +15,10 @@ public class Ronda {
 
     public void setRondaJugada(boolean rondaJugada) {this.rondaFinalizada = rondaJugada;}
 
+    public Partido[] getPartidos() {
+        return partidos;
+    }
+
     public void infoRonda() {
 
         System.out.println();

@@ -43,7 +43,7 @@ public class Pronostico {
     }
 
     public int puntos() {
-        if (idRonda.equals(this.partido.getIdRonda())&&this.idFase.equals(this.partido.getIdFase())) { // Verifica si es la misma ronda y la misma fase
+        if (idRonda.equals(this.partido.getIdRonda()) && idFase.equals(this.partido.getIdFase())) { // Verifica si es la misma ronda y la misma fase
             if ((this.partido.getGolesEquipo1()) > (this.partido.getGolesEquipo2())) {
                 if ((this.partido.getEquipo1().getNombre().equals(this.equipo.getNombre())) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
                     return puntosPorCadaAcierto;
@@ -64,6 +64,10 @@ public class Pronostico {
     }
 
 //** Getters **
+
+    public String getIdFase() {
+        return idFase;
+    }
 
     public Partido getPartido() { return partido; }
 

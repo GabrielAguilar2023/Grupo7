@@ -124,10 +124,12 @@ public class LecturaArchivos {
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
 // Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
                 for(int i=0; i<resultadosdePartidos.length;i++) {
-                    if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) && (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))) {
-                        informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
-                        informacionArchivo[contadorFila-1].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPartidoGanado));
-                        break;
+                    if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) &&
+                       (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))&&
+                       (vectorAux[8].equals(resultadosdePartidos[i].getIdFase()))) {
+                            informacionArchivo[contadorFila - 1] = new Pronostico(resultadosdePartidos[i], vectorAux);
+                            informacionArchivo[contadorFila-1].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPartidoGanado));
+                            break;
                     }
                 }
             }
@@ -135,6 +137,4 @@ public class LecturaArchivos {
         }
         return informacionArchivo;
     }
-
-
 }
