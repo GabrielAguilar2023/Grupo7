@@ -34,7 +34,6 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                 if (cargarArchivoDeConfiguracion(args[0])&& conexionMySql()) {
                         mySql_OK = true;
                         archivoResultados = args[1];
-                    // todo ---> analizar el pronostico desde la base de datos
 
                 } else {
                     archivoResultados = args[0];
@@ -54,14 +53,17 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         if (!mySql_OK)
             filasDePronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
 // Si los archivos tienen filas continuar a creacion y carga de los objetos.
-        if ((filasDeResultados >1) && filasDePronosticos >1){
+        if ((filasDeResultados >1) && filasDePronosticos >1) {
 //Creacion de todos los Objetos necesarios para el proceso
             //Procesamiento de los datos resultados
-            Partido[] resultados  = cargarArchivoDeResultados(archivoResultados);
+            Partido[] resultados = cargarArchivoDeResultados(archivoResultados);
             Ronda[] rondas = crearObjetosRonda(resultados);
-            for (int i=0;i<rondas.length;i++){
-                rondas[i].infoRonda();
-            }
+
+            if (infoDelCampeonato.equals("SI")){
+                for (int i = 0; i < rondas.length; i++) {
+                    rondas[i].infoRonda();
+                }
+        }
             //Procesaiento de los datos pronosticos
             if (!mySql_OK) {
                 pronosticos = cargarArchivoDePronosticos(archivoPronosticos, resultados);
@@ -87,7 +89,6 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                var partidosDeEstaRonda = rondas[i].getPartidos().length;
                if (aciertosEnEstaRonda==partidosDeEstaRonda){
                    participantes[j].sumarPuntosExtrasRonda();
-                   System.out.println("Puntos extras");
                }
            }
        }
@@ -189,7 +190,7 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
             participantes[j].setAciertos(pasarAciertos);
             participantes[j].setPuntaje(puntajeDeAciertos);
 //Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
-            participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorFase));
+            participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorRonda));
         }
     return participantes;
     }

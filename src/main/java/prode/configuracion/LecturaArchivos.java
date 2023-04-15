@@ -23,12 +23,13 @@ public class LecturaArchivos {
 //Carga el archivo en el objeto Properties
             propiedadesDelProyecto.load(new FileReader(arg));
             puntajePorPartidoGanado = propiedadesDelProyecto.getProperty("puntajePorPartidoGanado", "1");
-            puntajeExtraPorRonda = propiedadesDelProyecto.getProperty("puntajeExtra", "0");
+            puntajeExtraPorRonda = propiedadesDelProyecto.getProperty("puntajeExtraPorRonda", "0");
             puntajeExtraPorFase =propiedadesDelProyecto.getProperty("puntajeExtraPorFase", "0");
             mysql_url = propiedadesDelProyecto.getProperty("mysql_url", "");
             mysql_user = propiedadesDelProyecto.getProperty("mysql_user", "");
             mysql_password = propiedadesDelProyecto.getProperty("mysql_password", "");
             campeonatoFinalizado = propiedadesDelProyecto.getProperty("campeonatoFinalizado","NO");
+            infoDelCampeonato=propiedadesDelProyecto.getProperty("infoDelCampeonato","SI");
 
             if ((puntajePorPartidoGanado.equals("1") &&
                     puntajeExtraPorRonda.equals("0") &&

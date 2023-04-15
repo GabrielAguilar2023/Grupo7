@@ -19,6 +19,7 @@ public class Inicializacion {
     public static String mysql_user ="";
     public static String mysql_password ="";
     public static String campeonatoFinalizado = "NO";
+    public static String infoDelCampeonato="SI";
 
 //Autodefinidas
     public static int numeroFijoDeColumnasResultados = 7;
@@ -27,6 +28,7 @@ public class Inicializacion {
     public static String archivoPronosticos = "";
     public static Scanner capturaArchivo = new Scanner(System.in);
     public static boolean mySql_OK = false;
+
     public static Pronostico[] pronosticos;
 
 // Metodo utilizado para determinar si un String contiene dato numerico
