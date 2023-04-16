@@ -1,10 +1,8 @@
 package prode;
-
 import prode.clase.*;
 import static prode.configuracion.Inicializacion.*;
 import static prode.configuracion.LecturaArchivos.*;
 import static prode.configuracion.ConexionSQL.*;
-
 import java.sql.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,14 +44,13 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                 cargarArchivoDeConfiguracion(args[0]);
                 archivoResultados= args[1];
                 archivoPronosticos=args[2];
-                System.out.println("\n ** Pronostico desde los archivos .scv **");
+                System.out.println("\n    ** Pronostico desde el archivo .scv **  ");
             }
         }
-
         filasDeResultados = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
         if (!mySql_OK)
             filasDePronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
-// Si los archivos tienen filas continuar a creacion y carga de los objetos.
+//Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((filasDeResultados >1) && filasDePronosticos >1) {
 
 //----------Creacion de todos los Objetos necesarios para el proceso
@@ -88,13 +85,12 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
             listaDeEquipos.add(partidos[j].getEquipo2().getNombre());
             numeroDeFases.add(partidos[j].getIdFase());
         }
-
         String[] vectorDeEquipos = new String[listaDeEquipos.size()];   // Pasa de HashSet a vector
         listaDeEquipos.toArray(vectorDeEquipos);
         String[] vectorDeFases= new String[numeroDeFases.size()];       // Determina el numero de fases
         numeroDeFases.toArray(vectorDeFases);
 
-        // Buscar en que partido jugo cada equipo
+// Buscar en que partido jugo cada equipo
         for(int k = 0;k<vectorDeFases.length;k++){
             if(infoDebug.equals("SI"))System.out.println("----------------- Fase "+ vectorDeFases[k] +" -----------------");
         for (int i = 0; i < vectorDeEquipos.length; i++) {
@@ -116,14 +112,9 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
              for (int j=0; j<participantes.length;j++){
                  participantes[j].sumarPuntosExtrasFase(partidosEnLaFase, infoDebug);
              }
-
-             //todo llamar al metodo de cada participante para ver si coinciden las listas de aciertos
-             if(infoDebug.equals("SI"))System.out.println(vectorDeEquipos[i] + "\n");
-
-
+         if(infoDebug.equals("SI"))System.out.println(vectorDeEquipos[i] + "\n");
          }
         }
-
     }
         return participantes;
     }
@@ -266,14 +257,12 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
         System.out.println(" x --> Extra por ronda    * --> Extra por fase");
         System.out.println("-----------------------------------------------\n");
 
-
         for(int i=0;i<participantes.length;i++)
             System.out.println(" "+ (i+1) +"º --> " + participantes[i].getNombre() + ": " +
                     participantes[i].getPuntaje() + " puntos," + " con " +
                     participantes[i].getListaDeAciertos().size()+  " aciertos"+
                     " \n        "+ participantes[i].getIndicacionExtra()+"\n");
         System.out.println("---------------------------------------------");
-
     }
 
     private static boolean isNumeric(String texto) {
