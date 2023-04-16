@@ -2,9 +2,7 @@ package prode.configuracion;
 
 import prode.clase.Partido;
 import prode.clase.Pronostico;
-
 import static prode.configuracion.Inicializacion.*;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,28 +27,27 @@ public class LecturaArchivos {
             mysql_user = propiedadesDelProyecto.getProperty("mysql_user", "");
             mysql_password = propiedadesDelProyecto.getProperty("mysql_password", "");
             campeonatoFinalizado = propiedadesDelProyecto.getProperty("campeonatoFinalizado","NO");
-            infoDelCampeonato=propiedadesDelProyecto.getProperty("infoDelCampeonato","SI");
+            infoDebug =propiedadesDelProyecto.getProperty("infoDebug","SI");
 
             if ((puntajePorPartidoGanado.equals("1") &&
                     puntajeExtraPorRonda.equals("0") &&
                     puntajeExtraPorFase.equals("0"))) {
-                System.out.println("\n **** CONFIGURACION POR DEFECTO ****\n");
+               System.out.println("\n ********** CONFIGURACION POR DEFECTO **********\n");
             }else{
-                System.out.println("\n************* CONFIGURACION ************");
-                System.out.println("Acierto = " + puntajePorPartidoGanado + " puntos");
-                System.out.println("Ronda completa acertada = " + puntajeExtraPorRonda + " puntos extras.");
-                System.out.println("Aciertos sobre equipos por fase = " + puntajeExtraPorFase + " puntos extras.");
-                System.out.println("****************************************");
-
+                System.out.println("\n**************** CONFIGURACION ****************");
+                System.out.println("  Acierto = " + puntajePorPartidoGanado + " puntos.");
+                System.out.println("  Ronda completa = " + puntajeExtraPorRonda + " puntos.  ");
+                System.out.println("  Fase completa por equipo = " + puntajeExtraPorFase + " puntos.  ");
+                System.out.println("***********************************************");
             }
 // Si no hay info de SQL entonces se avisa que no hay configuracion MySQL
             if (!(mysql_url.isEmpty() || mysql_user.isEmpty() || mysql_password.isEmpty())) {
                 return true;
             }else {
-                System.out.println("\n**** No hay configuracion MySQL ****");
+                System.out.println("\n******** No hay configuracion MySQL ********");
                 return false;}
         } catch (Exception e){
-            System.out.println("\nNo hay configuracion externa cargada...");
+            System.out.println("\n    No hay configuracion externa cargada...");
             return false;
         }
     }
@@ -123,7 +120,7 @@ public class LecturaArchivos {
         for (String texto : Files.readAllLines(Paths.get(archivo))) { // Extrae filas del archivo
             String[] vectorAux = texto.split(";");  //Separa las columnas de cada fila
             if(contadorFila>0) {    // Para evitar cargar en un objeto el encabezado de la tabla
-// Asociacion de los objetos "Partido" creados anteriormente con el archivo resultados a los objetos "Pronostico"
+// Asociacion de los objetos "Partido" (creados anteriormente con el archivo resultados) a los objetos "Pronostico"
                 for(int i=0; i<resultadosdePartidos.length;i++) {
                     if ((vectorAux[5].equals(resultadosdePartidos[i].getIdPartido())) &&
                        (vectorAux[6].equals(resultadosdePartidos[i].getIdRonda()))&&

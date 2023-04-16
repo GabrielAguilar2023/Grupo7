@@ -19,7 +19,7 @@ public class Inicializacion {
     public static String mysql_user ="";
     public static String mysql_password ="";
     public static String campeonatoFinalizado = "NO";
-    public static String infoDelCampeonato="SI";
+    public static String infoDebug ="SI";
 
 //Autodefinidas
     public static int numeroFijoDeColumnasResultados = 7;
