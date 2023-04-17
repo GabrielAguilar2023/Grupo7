@@ -29,11 +29,7 @@ public class Ronda {
         if (!this.rondaFinalizada){
             System.out.println();
             System.out.println("* IMPORTANTE *  "+this.nro+"º Ronda no finalizada -");
-
-
-}
-
-
+        }
     }
 }
 

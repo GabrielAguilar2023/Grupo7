@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class Participante {
     private String nombre;
-    private String idParticipante;
     private int puntaje;
- //   private String [][] aciertos;
     private int puntajeRonda;
     private int puntajeFase;
     private String indicacionExtra ="";
@@ -42,12 +40,8 @@ public class Participante {
     public void sumarPuntosExtrasFase(ArrayList<String> partidosDeFase,String mostrar){
         int partidosDeLaFase = partidosDeFase.size();
         int aciertosDeEsteEquipoEnLaFase =0;
-        var borrar =this.nombre;
-        for (String linea:partidosDeFase) {
-            if (this.listaDeAciertos.contains(linea)) {
-                aciertosDeEsteEquipoEnLaFase+=1;
-            }
-        }
+        for (String linea:partidosDeFase)
+            if (this.listaDeAciertos.contains(linea)) aciertosDeEsteEquipoEnLaFase++;
         if(aciertosDeEsteEquipoEnLaFase == partidosDeLaFase) {
             this.puntaje += puntajeFase;
             this.indicacionExtra = this.indicacionExtra + "* ";
@@ -62,20 +56,9 @@ public class Participante {
 
     public int aciertosPorRonda (String ronda,String fase){
         int aciertos=0;
-//Convierte <lista> a matriz de aciertos
-        String [][] matriz = new String[this.listaDeAciertos.size()][3];
-        for (int i=0;i<listaDeAciertos.size();i++){
-            String filas = listaDeAciertos.get(i);
-            var vector= filas.split(";");  //Separa las columnas
-            for (int j=0;j<matriz[0].length;j++){
-                matriz[i][j]= vector[j]; // Convierte vector columna a fila de la matriz
-            }
-        }
-
-        for (int i=0;i<matriz.length;i++){
-            if ((matriz[i][1]).equals(ronda)&&(matriz[i][2]).equals(fase)) {
-             aciertos++;
-            }
+        for (String filas : listaDeAciertos) {
+            var vectorAuxiliar = filas.split(";");  //Separa las columnas
+            if (vectorAuxiliar[1].equals(ronda) && vectorAuxiliar[2].equals(fase)) aciertos++;
         }
     return aciertos;
     }

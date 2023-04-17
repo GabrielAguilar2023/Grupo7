@@ -12,7 +12,7 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
     private String idFase;
 // Archivo resultados.csv:
 // |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |     idFase     |
-// | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | prediccion[4] | prediccion[5] | prediccion [6] |
+// | datoEntrada[0] | datoEntrada[1] | datoEntrada[2] | datoEntrada[3] | datoEntrada[4]| datoEntrada[5]| datoEntrada[6] |
 
 //****** CONSTRUCTOR *******
     public Partido(String [] datoEntrada) {
@@ -38,9 +38,7 @@ public class Partido implements Comparable <Partido> { // implements Comparable 
         return equipo2;
     }
 
-    public Equipo getEquipo1() {
-        return equipo1;
-    }
+    public Equipo getEquipo1() { return equipo1; }
 
     public int getGolesEquipo1() {
         return golesEquipo1;

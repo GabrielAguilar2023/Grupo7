@@ -11,9 +11,6 @@ public class Pronostico {
     private ResultadoEnum resultado;
     private int puntosPorCadaAcierto;
 
-    public void setPuntosPorCadaAcierto(int puntosPorCadaAcierto) {
-        this.puntosPorCadaAcierto = puntosPorCadaAcierto;
-    }
 // |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|   idFase    |idPronostico |
 // |prediccion[0]|prediccion[1]|prediccion[2]|prediccion[3]|prediccion[4]|prediccion[5]|prediccion[6]|prediccion[7]|prediccion[8]|prediccion[9]|
 
@@ -42,27 +39,6 @@ public class Pronostico {
         }
     }
 
-    public int puntos() {
-        if (idRonda.equals(this.partido.getIdRonda()) && idFase.equals(this.partido.getIdFase())) { // Verifica si es la misma ronda y la misma fase
-            if ((this.partido.getGolesEquipo1()) > (this.partido.getGolesEquipo2())) {
-                if ((this.partido.getEquipo1().getNombre().equals(this.equipo.getNombre())) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
-                    return puntosPorCadaAcierto;
-                }
-            } else {
-                if ((this.partido.getGolesEquipo1()) < (this.partido.getGolesEquipo2())) {
-                    if ((this.partido.getEquipo2().getNombre().equals(this.equipo.getNombre())) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
-                        return puntosPorCadaAcierto;
-                    }
-                } else {
-                    if (this.resultado.equals(ResultadoEnum.EMPATE)) {
-                        return puntosPorCadaAcierto;
-                    }
-                }
-            }
-        }
-        return 0;
-    }
-
 //** Getters **
 
     public String getIdFase() {
@@ -87,8 +63,30 @@ public class Pronostico {
         return Participante;
     }
 
-    public void setPuntosPorAciertos(int puntosPorAcierto) {
-        this.puntosPorCadaAcierto = puntosPorAcierto;
+    public void setPuntosPorCadaAcierto(int puntosPorCadaAcierto) {
+        this.puntosPorCadaAcierto = puntosPorCadaAcierto;
     }
+
+    public int puntos() {
+        if (idRonda.equals(this.partido.getIdRonda()) && idFase.equals(this.partido.getIdFase())) { // Verifica si es la misma ronda y la misma fase
+            if ((this.partido.getGolesEquipo1()) > (this.partido.getGolesEquipo2())) {
+                if ((this.partido.getEquipo1().getNombre().equals(this.equipo.getNombre())) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
+                    return puntosPorCadaAcierto;
+                }
+            } else {
+                if ((this.partido.getGolesEquipo1()) < (this.partido.getGolesEquipo2())) {
+                    if ((this.partido.getEquipo2().getNombre().equals(this.equipo.getNombre())) && (this.resultado.equals(ResultadoEnum.GANADOR))) {
+                        return puntosPorCadaAcierto;
+                    }
+                } else {
+                    if (this.resultado.equals(ResultadoEnum.EMPATE)) {
+                        return puntosPorCadaAcierto;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
 
 }
