@@ -1,8 +1,10 @@
 package prode;
+
 import prode.clase.*;
 import static prode.configuracion.Inicializacion.*;
 import static prode.configuracion.LecturaArchivos.*;
 import static prode.configuracion.ConexionSQL.*;
+
 import java.sql.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,11 +15,11 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException {
 
 /**
- Carga de Archivos por argumento: 1º ArchivosEjemploDeEntrada/configuracion.properties
- 2º ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
- 3º ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
- Para cargar los pronosticos desde MySQL, configurar la conexion a la base de datos en el archivo .properties y
- pasar por parametros solamente el archivo de configuracion y el de resultados.
+ Carga de Archivos por argumento:   1º ArchivosEjemploDeEntrada/configuracion.properties
+                                    2º ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
+                                    3º ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+ Para cargar los pronosticos desde MySQL, configurar la conexion a la base de datos en el archivo "configuracion.properties" y
+ pasar por parametros solamente el archivo de 'configuracion' y el de 'resultados'.
  **/
         switch (args.length) {
             case 1: {
@@ -152,9 +154,8 @@ public class Main {
         rondas = new Ronda[cantidadRondas];
 //------ Comienza la carga del vector de Rondas
         while (partidosJugados.length>0){
-
             if(indiceDeRondas>0)
-                rondas[indiceDeRondas-1].setRondaJugada(true);  //********* Prueba
+                rondas[indiceDeRondas-1].setRondaJugada(true);
 //Determino el numero de partidos por rondas
             int cantpart = 0;
             for (int i = 0; i < partidosJugados.length; i++) {
@@ -168,7 +169,6 @@ public class Main {
             }
 //Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda
             rondas[indiceDeRondas] = new Ronda(Arrays.copyOfRange(partidosJugados, 0, cantpart),partidosJugados[0].getIdRonda());
-
             indiceDeRondas++;
 //Quito los partidos de la ronda anterior, del vector de partidos jugados
             partidosJugados = Arrays.copyOfRange(partidosJugados, cantpart, partidosJugados.length);
@@ -223,7 +223,6 @@ public class Main {
     }
 
     private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
-
 //Selecciono cada ronda
        for (int i=0;i<rondas.length;i++){
            String fase = rondas[i].getPartidos()[0].getIdFase();
@@ -242,7 +241,6 @@ public class Main {
        }
 
     }
-
 
     private static void imprimirRankingDeAciertos(Participante[] participantes){
         for (int i = 0; i < participantes.length; i++){
@@ -267,5 +265,4 @@ public class Main {
                     " \n        "+ participantes[i].getIndicacionExtra()+"\n");
         System.out.println("-----------------------------------------------");
     }
-
 }
