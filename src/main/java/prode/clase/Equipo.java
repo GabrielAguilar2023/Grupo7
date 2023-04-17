@@ -1,4 +1,4 @@
-package tpi144g7.prode.clase;
+package prode.clase;
 
 public class Equipo {
    private String nombre;
@@ -7,7 +7,7 @@ public class Equipo {
 //****** CONSTRUCTOR *******
     public Equipo(String nombre) {
         this.nombre = nombre;
-        this.descripcion ="Seleccion";
+        this.descripcion ="Seleccion Nacional";
     }
 
     public String getNombre() {
