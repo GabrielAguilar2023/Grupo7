@@ -13,10 +13,11 @@ public class PronosticoTest {
     @DisplayName("Pronostico acertado: Gana Equipo 1 y se asigna puntaje")
     @Test
     public void pronosticoAciertoGanaEquipo1 (){
-        Partido partido = new Partido(new String[]{"Angola", "2", "3", "Croacia", "3", "2"});
-        Pronostico pronostico = new Pronostico (partido,new String[]{"Angola","","","X","Croacia","3","2","Juan"});
+        Partido partido = new Partido(new String[]{"Angola", "2", "3", "Croacia", "3", "2","2"});
+        Pronostico pronostico = new Pronostico (partido,new String[]{"Angola","","","X","Croacia","3","2","Juan","2","1"});
+        pronostico.setPuntosPorCadaAcierto(2);
 
-        Assertions.assertEquals(pronostico.puntos(),1);
+        Assertions.assertEquals(pronostico.puntos(),2);
         Assertions.assertEquals(pronostico.getEquipo().getNombre(),partido.getEquipo2().getNombre());
         Assertions.assertEquals(pronostico.getResultado(), ResultadoEnum.GANADOR);
     }
@@ -32,22 +33,22 @@ public class PronosticoTest {
 //    |    Equipo1     |   Goles Eq 1   |   Goles Eq 2   |    Equipo2     |  idPartido    |    idRonda    |
 
 //Primera Ronda
-        Ronda1[0] = new Partido(new String[]{"Angola", "2", "3", "Croacia", "1", "1"});
-        Ronda1[1] = new Partido(new String[]{"Costa Rica", "1", "0", "Nigeria", "2", "1"});
-        Ronda1[2] = new Partido(new String[]{"Croacia", "1", "3", "Costa Rica", "3", "1"});
-        Ronda1[3] = new Partido(new String[]{"Angola", "2", "2", "Nigeria", "4", "1"});
-        Ronda1[4] = new Partido(new String[]{"Angola", "1", "3", "Costa Rica", "5", "1"});
-        Ronda1[5] = new Partido(new String[]{"Croacia", "2", "3", "Nigeria","6","1"});
+        Ronda1[0] = new Partido(new String[]{"Angola", "2", "3", "Croacia", "1", "1","2"});
+        Ronda1[1] = new Partido(new String[]{"Costa Rica", "1", "0", "Nigeria", "2", "1","2"});
+        Ronda1[2] = new Partido(new String[]{"Croacia", "1", "3", "Costa Rica", "3", "1","2"});
+        Ronda1[3] = new Partido(new String[]{"Angola", "2", "2", "Nigeria", "4", "1","2"});
+        Ronda1[4] = new Partido(new String[]{"Angola", "1", "3", "Costa Rica", "5", "1","2"});
+        Ronda1[5] = new Partido(new String[]{"Croacia", "2", "3", "Nigeria","6","1","2"});
 //Segunda Ronda
-        Ronda2[0] = new Partido(new String[]{"Costa Rica", "2", "2", "Francia", "1", "2"});
-        Ronda2[1] = new Partido(new String[]{"Francia", "1", "2", "Costa Rica", "2", "2"});
+        Ronda2[0] = new Partido(new String[]{"Costa Rica", "2", "2", "Francia", "1", "2","2"});
+        Ronda2[1] = new Partido(new String[]{"Francia", "1", "2", "Costa Rica", "2", "2","2"});
 
 //Tercera Ronda
-        Partido partidosDeTest3_1 = new Partido(new String[]{"Costa Rica", "4", "3", "Brasil", "0", "3"});
-        Partido partidosDeTest3_2 = new Partido(new String[]{"Brasil", "2", "2", "Costa Rica", "1", "3"});
+        Partido partidosDeTest3_1 = new Partido(new String[]{"Costa Rica", "4", "3", "Brasil", "0", "3","2"});
+        Partido partidosDeTest3_2 = new Partido(new String[]{"Brasil", "2", "2", "Costa Rica", "1", "3","2"});
 //Cuarta Ronda
-        Partido partidosDeTest4_1 = new Partido(new String[]{"Costa Rica", "1", "3", "Argentina", "0", "4"});
-        Partido partidosDeTest4_2 = new Partido(new String[]{"Argentina", "5", "2", "Costa Rica","1","4"});
+        Partido partidosDeTest4_1 = new Partido(new String[]{"Costa Rica", "1", "3", "Argentina", "0", "4","2"});
+        Partido partidosDeTest4_2 = new Partido(new String[]{"Argentina", "5", "2", "Costa Rica","1","4","2"});
 
 
 //***************************** Pronostico de Juan en las 2 primeras rondas ********************************
@@ -57,15 +58,15 @@ public class PronosticoTest {
 //      |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|
 
 //--------1º Ronda -------------
-/*No*/        Juan [0] = new Pronostico (Ronda1[0],new String[]{"Angola","","X","","Croacia","1","1","Juan"});
-/*Si*/        Juan [1] = new Pronostico (Ronda1[1],new String[]{"Costa Rica","X","","","Nigeria","2","1","Juan"});
-/*Si*/        Juan [2] = new Pronostico (Ronda1[2],new String[]{"Croacia","","","X","Costa Rica","3","1","Juan"});
-/*No*/        Juan [3] = new Pronostico (Ronda1[3],new String[]{"Angola","X","","","Nigeria","4","1","Juan"});
-/*Si*/        Juan [4] = new Pronostico (Ronda1[4],new String[]{"Angola","","","X","Costa Rica","5","1","Juan"});
-/*No*/        Juan [5] = new Pronostico (Ronda1[5],new String[]{"Croacia","","X","","Nigeria","6","1","Juan"});
+/*No*/        Juan [0] = new Pronostico (Ronda1[0],new String[]{"Angola","","X","","Croacia","1","1","Juan","2","1"});
+/*Si*/        Juan [1] = new Pronostico (Ronda1[1],new String[]{"Costa Rica","X","","","Nigeria","2","1","Juan","2","2"});
+/*Si*/        Juan [2] = new Pronostico (Ronda1[2],new String[]{"Croacia","","","X","Costa Rica","3","1","Juan","2","3"});
+/*No*/        Juan [3] = new Pronostico (Ronda1[3],new String[]{"Angola","X","","","Nigeria","4","1","Juan","2","4"});
+/*Si*/        Juan [4] = new Pronostico (Ronda1[4],new String[]{"Angola","","","X","Costa Rica","5","1","Juan","2","5"});
+/*No*/        Juan [5] = new Pronostico (Ronda1[5],new String[]{"Croacia","","X","","Nigeria","6","1","Juan","2","6"});
 //--------2º Ronda -------------
-/*Si*/        Juan [6] = new Pronostico (Ronda2[0],new String[]{"Costa Rica","","X","","Francia","1","2","Juan"});
-/*Si*/        Juan [7] = new Pronostico (Ronda2[1],new String[]{"Francia","","","X","Costa Rica","2","2","Juan"});
+/*Si*/        Juan [6] = new Pronostico (Ronda2[0],new String[]{"Costa Rica","","X","","Francia","1","2","Juan","2","7"});
+/*Si*/        Juan [7] = new Pronostico (Ronda2[1],new String[]{"Francia","","","X","Costa Rica","2","2","Juan","2","8"});
 
 // Llama al metodo punto() de la clase "Pronostico", para cada pronostico dado por Juan.
 int puntajeDeJuan=0;

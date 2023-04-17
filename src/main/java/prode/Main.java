@@ -13,28 +13,30 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException {
 
 /**
-Carga de Archivos por argumento: src\main\resources\configuracion.properties
-                                 archivos.csv\resultados.csv
-                                 archivos.csv\pronosticos.csv
-**/
-        switch (args.length){
+ Carga de Archivos por argumento: 1º ArchivosEjemploDeEntrada/configuracion.properties
+ 2º ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
+ 3º ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+ Para cargar los pronosticos desde MySQL, configurar la conexion a la base de datos en el archivo .properties y
+ pasar por parametros solamente el archivo de configuracion y el de resultados.
+ **/
+        switch (args.length) {
             case 1: {
                 cargarArchivoDeConfiguracion(args[0]);
             }
-            case 0:{
-                if(args.length==0) {
-                    System.out.println("\nDirectorio donde se encuentra el archivo 'configuracion.properties'...");
-                    cargarArchivoDeConfiguracion(capturaArchivo.nextLine()+"\\configuracion.properties");
+            case 0: {
+                if (args.length == 0) {
+                    System.out.println("\nIngrese el archivo de configuracion (p.e. >ArchivosEjemploDeEntrada/configuracion.properties< ) -->");
+                    cargarArchivoDeConfiguracion(capturaArchivo.nextLine());
                 }
-                System.out.println("\n\nDirectorio donde se encuentra el archivo 'resultados.csv': ");
-                archivoResultados = capturaArchivo.nextLine()+"\\resultados.csv";
-                analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
-                System.out.println("Directorio donde se encuentra el archivo 'pronosticos.csv': ");
-                archivoPronosticos = capturaArchivo.nextLine()+"\\pronosticos.csv";
+                System.out.println("\nIngrese el archivo de resultados (p.e. >ArchivosEjemploDeEntrada/archivos.csv/resultados.csv< ) -->");
+                archivoResultados = capturaArchivo.nextLine();
+                analizarArchivos(archivoResultados, numeroFijoDeColumnasResultados);
+                System.out.println("\nIngrese el archivo de resultados (p.e. >ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv< ) -->");
+                archivoPronosticos = capturaArchivo.nextLine();
                 break;
             }
             case 2: {
-                if (cargarArchivoDeConfiguracion(args[0])&& conexionMySql()) {
+                if (cargarArchivoDeConfiguracion(args[0]) && conexionMySql()) {
                     mySql_OK = true;
                     archivoResultados = args[1];
 
@@ -44,16 +46,18 @@ Carga de Archivos por argumento: src\main\resources\configuracion.properties
                 }
                 break;
             }
-            case 3:{
+            case 3: {
                 cargarArchivoDeConfiguracion(args[0]);
-                archivoResultados= args[1];
-                archivoPronosticos=args[2];
+                archivoResultados = args[1];
+                archivoPronosticos = args[2];
                 System.out.println("\n**  Datos desde el archivo 'pronosticos.scv' **  ");
             }
         }
-        filasDeResultados = analizarArchivos(archivoResultados,numeroFijoDeColumnasResultados);
-        if (!mySql_OK)
-            filasDePronosticos = analizarArchivos(archivoPronosticos,numeroFijoDeColumnasPronosticos);
+        filasDeResultados = analizarArchivos(archivoResultados, numeroFijoDeColumnasResultados);
+        if (!mySql_OK){
+            filasDePronosticos = analizarArchivos(archivoPronosticos, numeroFijoDeColumnasPronosticos);
+            System.out.println("\nPronosticos desde: "+archivoPronosticos);
+    }
 //Si los archivos tienen filas continuar a creacion y carga de los objetos.
         if ((filasDeResultados >1) && filasDePronosticos >1) {
             pantallaDeConfiguracion();

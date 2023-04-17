@@ -21,6 +21,7 @@ public class Pronostico {
         this.Participante = prediccion[7];
         this.partido = PartidoPronosticado;
         this.equipo = new Equipo("");
+        this.puntosPorCadaAcierto=1;        // Valor por defecto
 
         // Determina quien es el ganador pronosticado (Si el equipo1 o el equipo2)
         if (prediccion[1].equals("X")) {
@@ -53,10 +54,6 @@ public class Pronostico {
 
     public Equipo getEquipo() {
         return equipo;
-    }
-
-    public String getIdRonda() {
-        return idRonda;
     }
 
     public String getParticipante() {
