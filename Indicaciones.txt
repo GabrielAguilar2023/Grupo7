@@ -1,3 +1,4 @@
+Consideraciones Generales:              
 
 Para la configuracion se utiliza un archivo llamado 'configuracion.properties' y para los resultados
 de los partidos se utiliza un archivo csv con separacion de campos por ";".
@@ -55,6 +56,7 @@ Archivos .csv de entrada csv: ArchivosEjemploDeEntrada/archivos.csv/resultados.c
 Base de datos de pronosticos: ArchivosEjemploDeEntrada/baseDeDatos/prode.sql
 
 El archivo "configuracion.properties" debe tener los siguientes datos: key=valor
+
 --------------- Ejemplo --------------------
 puntajeExtraPorRonda=10
 puntajeExtraPorFase=6
@@ -95,5 +97,4 @@ Ejemplo de carga de entradas:
   parametro 0 -> "ArchivosEjemploDeEntrada/configuracion.properties"
   parametro 1 -> "ArchivosEjemploDeEntrada/archivos.csv/resultados.csv"
   parametro 2 -> "ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv"
-  
-  
+  ----------------------------------------------------------------------
