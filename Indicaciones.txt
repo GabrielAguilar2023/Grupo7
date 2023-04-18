@@ -1,9 +1,9 @@
 Consideraciones Generales:              
 
 Para la configuracion se utiliza un archivo llamado 'configuracion.properties' y para los resultados
-de los partidos se utiliza un archivo csv con separacion de campos por ";".
+de los partidos se utiliza un archivo csv (resultados.csv) con separacion de campos por ";".
 En cuanto a los datos de los pronosticos, estos pueden provenir de una base de datos MySQL o de un
-archivo csv con separacion de campos ";"
+archivo csv (pronosticos.csv) con separacion de campos por ";".
 
 Para leer los pronosticos desde una base de datos MySQL se debe:
 - Ingresar por parametro el archivo 'configuracion.properties'(Donde estan los datos de conexion a MySQL).
