@@ -1,4 +1,4 @@
-package tpi144g7.prode.enumeracion;
+package prode.enumeracion;
 
 public enum ResultadoEnum {
     GANADOR,
