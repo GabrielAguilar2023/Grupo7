@@ -95,3 +95,5 @@ Ejemplo de carga de entradas:
   parametro 0 -> "ArchivosEjemploDeEntrada/configuracion.properties"
   parametro 1 -> "ArchivosEjemploDeEntrada/archivos.csv/resultados.csv"
   parametro 2 -> "ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv"
+  
+  
