@@ -48,12 +48,13 @@ Campeonato Mundial de Qatar consta de: 2 fases: 1 fase de grupos y una fase de e
 
 
 Datos de Ejemplo:
-Archivo de configuracion:     ArchivosEjemploDeEntrada/configuracion.properties
+Archivo de configuracion:     src/main/resources/configuracion.properties
 
-Archivos .csv de entrada csv: ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
-                              ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
 
-Base de datos de pronosticos: ArchivosEjemploDeEntrada/baseDeDatos/prode.sql
+Archivos .csv de entrada csv: src/main/resources/archivos.csv/resultados.csv
+                              src/main/resources/archivos.csv/pronosticos.csv
+
+Base de datos de pronosticos: src/main/resources/baseDeDatosMySQL/prode.sql
 
 El archivo "configuracion.properties" debe tener los siguientes datos: key=valor
 
@@ -73,30 +74,30 @@ Ejemplo de carga de entradas:
 0 parametros
   Ingresar por linea de comandos cuando lo solicite
        |
-       |    / ArchivosEjemploDeEntrada/configuracion.properties
-       +-->| ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
-            \ ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+       |    / src/main/resources/configuracion.properties
+       +-->| src/main/resources/archivos.csv/resultados.csv
+            \ src/main/resources/archivos.csv/pronosticos.csv o (dar solamente Enter para cargar base de datos de MySQL)
 
 1 parametros
-  parametro 0 -> "ArchivosEjemploDeEntrada/configuracion.properties"
+  parametro 0 -> "src/main/resources/configuracion.properties"
   Ingresar por linea de comandos cuando lo solicite
        |
-       |    / ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
+       |    / src/main/resources/archivos.csv/resultados.csv
        +-->|
-            \ ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+            \ src/main/resources/archivos.csv/pronosticos.csv
 
 2 parametros (con properties) <--------- PARA USAR DATOS DE PRONOSTICOS DESDE MySQL
-  parametro 0 ->  "ArchivosEjemploDeEntrada/configuracion.properties"
-  parametro 1 ->  "ArchivosEjemploDeEntrada/archivos.csv/resultados.csv"
+  parametro 0 ->  "src/main/resources/configuracion.properties"
+  parametro 1 ->  "src/main/resources/archivos.csv/resultados.csv"
 
 2 parametros (sin properties)
-  parametro 0 -> "ArchivosEjemploDeEntrada/archivos.csv/resultados.csv"
-  parametro 1 -> "ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv"
+  parametro 0 -> "src/main/resources/archivos.csv/resultados.csv"
+  parametro 1 -> "src/main/resources/archivos.csv/pronosticos.csv"
 
 3 parametros
-  parametro 0 -> "ArchivosEjemploDeEntrada/configuracion.properties"
-  parametro 1 -> "ArchivosEjemploDeEntrada/archivos.csv/resultados.csv"
-  parametro 2 -> "ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv"
+  parametro 0 -> "src/main/resources/configuracion.properties"
+  parametro 1 -> "src/main/resources/archivos.csv/resultados.csv"
+  parametro 2 -> "src/main/resources/archivos.csv/pronosticos.csv"
 ------------------------------------------------------------------------------------------------------
-- La base de datos MySQL de prueba esta en la carpeta "ArchivosEjemploDeEntrada/baseDeDatos/prode.sql"
+- La base de datos MySQL de prueba esta en la carpeta "src/main/resources/baseDeDatosMySQL/prode.sql"
 ------------------------------------------------------------------------------------------------------
