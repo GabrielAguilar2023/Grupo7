@@ -27,14 +27,18 @@ public class Main {
             }
             case 0: {
                 if (args.length == 0) {
-                    System.out.println("\nIngrese el archivo de configuracion (p.e. >ArchivosEjemploDeEntrada/configuracion.properties< ) -->");
+                    System.out.println("\nIngrese el archivo de configuracion (p.e. >src/main/resources/configuracion.properties< ) -->");
                     cargarArchivoDeConfiguracion(capturaArchivo.nextLine());
                 }
-                System.out.println("\nIngrese el archivo de resultados (p.e. >ArchivosEjemploDeEntrada/archivos.csv/resultados.csv< ) -->");
+                System.out.println("\nIngrese el archivo de resultados (p.e. >src/main/resources/archivos.csv/resultados.csv< ) -->");
                 archivoResultados = capturaArchivo.nextLine();
                 analizarArchivos(archivoResultados, numeroFijoDeColumnasResultados);
-                System.out.println("\nIngrese el archivo de resultados (p.e. >ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv< ) -->");
-                archivoPronosticos = capturaArchivo.nextLine();
+                System.out.println("\nIngrese el archivo de resultados (p.e. >src/main/resources/archivos.csv/pronosticos.csv< ) o" +
+                                   " \n                                presiones Enter para cargar la base de datos desde MySQL   -->");
+                if ((archivoPronosticos = capturaArchivo.nextLine()).equals("")&&conexionMySql() ){
+                    mySql_OK = true;
+                };
+
                 break;
             }
             case 2: {
