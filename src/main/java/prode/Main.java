@@ -38,7 +38,6 @@ public class Main {
                 if ((archivoPronosticos = capturaArchivo.nextLine()).equals("")&&conexionMySql() ){
                     mySql_OK = true;
                 };
-
                 break;
             }
             case 2: {
@@ -223,15 +222,15 @@ public class Main {
          if(infoDebug.equals("SI"))System.out.println(vectorDeEquipos[i] + "\n");
          }
         }
-    }
+      }
     }
 
     private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
-//Selecciono cada ronda
+//Seleccionar cada ronda
        for (int i=0;i<rondas.length;i++){
            String fase = rondas[i].getPartidos()[0].getIdFase();
            int aciertosEnEstaRonda = 0;
-//Reviso si cada participante acerto toda la ronda.
+//Revisar si cada participante acierta toda la ronda.
            for(int j=0;j<participantes.length;j++){
                aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
                var partidosDeEstaRonda = rondas[i].getPartidos().length;

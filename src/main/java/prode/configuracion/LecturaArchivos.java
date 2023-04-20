@@ -128,22 +128,6 @@ public class LecturaArchivos {
                 System.out.println("El archivo no tiene datos a procesar");
                 System.exit(0);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return numeroDeFilas;
     }
 
