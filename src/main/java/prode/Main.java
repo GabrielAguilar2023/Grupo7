@@ -15,12 +15,13 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException {
 
 /**
- Carga de Archivos por argumento:   1º ArchivosEjemploDeEntrada/configuracion.properties
-                                    2º ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
-                                    3º ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+ Carga de Archivos por argumento:   1º src/main/resources/configuracion.properties
+                                    2º src/main/resources/archivos.csv/resultados.csv
+                                    3º src/main/resources/archivos.csv/pronosticos.csv
  Para cargar los pronosticos desde MySQL, configurar la conexion a la base de datos en el archivo "configuracion.properties" y
  pasar por parametros solamente el archivo de 'configuracion' y el de 'resultados'.
  **/
+//Distintas opciones a cerca de la carga de los archivos de entrada
         switch (args.length) {
             case 1: {
                 cargarArchivoDeConfiguracion(args[0]);
