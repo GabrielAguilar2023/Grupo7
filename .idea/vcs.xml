@@ -5,6 +5,8 @@
       <list>
         <option value="Parte1" />
         <option value="Parte2" />
+        <option value="master" />
+        <option value="Parte3" />
       </list>
     </option>
   </component>
