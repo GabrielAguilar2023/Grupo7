@@ -11,8 +11,6 @@ public class Ronda {
         this.nro = nroRonda;
     }
 
-   // public boolean isRondaJugada() {return rondaFinalizada;}
-
     public void setRondaJugada(boolean rondaJugada) {this.rondaFinalizada = rondaJugada;}
 
     public Partido[] getPartidos() {
