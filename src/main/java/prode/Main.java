@@ -35,7 +35,7 @@ public class Main {
                 archivoResultados = capturaArchivo.nextLine();
                 analizarArchivos(archivoResultados, numeroFijoDeColumnasResultados);
                 System.out.println("\nIngrese el archivo de resultados (p.e. >src/main/resources/archivos.csv/pronosticos.csv< ) o" +
-                                   " \n                                presiones Enter para cargar la base de datos desde MySQL   -->");
+                                   "\n                                 presiones Enter para cargar la base de datos desde MySQL   -->");
                 if ((archivoPronosticos = capturaArchivo.nextLine()).equals("")&&conexionMySql() ){
                     mySql_OK = true;
                 };
@@ -100,7 +100,6 @@ public class Main {
                 contador++;
 //Crea un arreglo de objeto participante
         participantes = new Participante[contador];
-        int[][] puntajeParticipante = new int[contador][2];
         participantes[0] = new Participante(listaOrdenar[0]); //Asigna el primer participante a la lista y comienza a comparar
 //Identifica los participantes y los carga en un vector para su posterior asignacion de puntaje
         if (listaOrdenar.length > 1) {
@@ -124,8 +123,9 @@ public class Main {
                     puntajeDeAciertos += acierto;
 //Carga de informacion de aciertos en cada participante
                     if (acierto>0) {
-                        pasarAciertos.add(pronosticos[i].getPartido().getIdPartido()+";"+pronosticos[i].getPartido().getIdRonda()+
-                                ";"+pronosticos[i].getIdFase());
+                        pasarAciertos.add( pronosticos[i].getPartido().getIdPartido() +
+                                     ";" + pronosticos[i].getPartido().getIdRonda() +
+                                     ";" + pronosticos[i].getPartido().getIdFase());
                         cantidadDeAciertos++;
                     }
                 }
@@ -135,7 +135,6 @@ public class Main {
 //Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
             participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorRonda));
             participantes[j].setPuntajeFase(Integer.parseInt(puntajeExtraPorFase));
-
         }
         return participantes;
     }
