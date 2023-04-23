@@ -3,7 +3,7 @@ package prode.clase;
 public class Ronda {
     private String nro;
     private Partido partidos[];
-    private boolean rondaFinalizada;
+    private boolean rondaFinalizada; // Bandera para saber si se analiza o no el puntaje extra por ronda
 
 //****** CONSTRUCTOR *******
     public Ronda(Partido[] PartidosDeRonda,String nroRonda) {

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Participante {
     private String nombre;
     private int puntaje;
-    private int puntajeRonda;
-    private int puntajeFase;
+    private int puntajeRonda; // Puntaje que se sumaria en caso de acertar la ronda completa
+    private int puntajeFase;  // Puntaje que se sumaria en caso de acertar toda la fase de un equipo
     private String indicacionExtra ="";
     private ArrayList <String> listaDeAciertos = new ArrayList<>(); // [0] idPartido  [1] idRonda  [2] idFase
 

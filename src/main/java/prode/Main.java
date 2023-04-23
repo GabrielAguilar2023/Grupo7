@@ -87,32 +87,31 @@ public class Main {
     }
 
     private static Participante[] CrearObjetosParticipantes(Pronostico[] pronosticos) {
-        String[] listaOrdenar = new String[pronosticos.length];
+        String[] nombreParticipante = new String[pronosticos.length];
         Participante [] participantes;
 //Extrae los participantes de cada linea de pronosticos
         for (int i = 0; i < pronosticos.length; i++)
-            listaOrdenar[i] = pronosticos[i].getParticipante();
-        Arrays.sort(listaOrdenar); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
-//Determinar la cantidad de participantes
+            nombreParticipante[i] = pronosticos[i].getParticipante();
+        Arrays.sort(nombreParticipante); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
+//Determinar la cantidad de participantes sin repetirse
         int contador = 1;
-        for (int i = 1; i < listaOrdenar.length; i++)
-            if (!listaOrdenar[i].equals(listaOrdenar[i - 1]))
+        for (int i = 1; i < nombreParticipante.length; i++)
+            if (!nombreParticipante[i].equals(nombreParticipante[i - 1]))
                 contador++;
 //Crea un arreglo de objeto participante
         participantes = new Participante[contador];
-        participantes[0] = new Participante(listaOrdenar[0]); //Asigna el primer participante a la lista y comienza a comparar
+        participantes[0] = new Participante(nombreParticipante[0]); //Asigna el primer participante a la lista y comienza a comparar
 //Identifica los participantes y los carga en un vector para su posterior asignacion de puntaje
-        if (listaOrdenar.length > 1) {
+        if (nombreParticipante.length > 1) {
             contador = 1;
-            for (int i = 1; i < listaOrdenar.length; i++)
-                if (!listaOrdenar[i].equals(listaOrdenar[i - 1])) {
-                    participantes[contador] = new Participante( listaOrdenar[i]);
+            for (int i = 1; i < nombreParticipante.length; i++)
+                if (!nombreParticipante[i].equals(nombreParticipante[i - 1])) {
+                    participantes[contador] = new Participante( nombreParticipante[i]);
                     contador++;
                 }
         }
 //Comienza la etapa de  puntaje a cada participante
         for (int j = 0; j < participantes.length; j++) {
-
             ArrayList <String> pasarAciertos = new ArrayList<>();
             int puntajeDeAciertos = 0;
             int cantidadDeAciertos = 0;
@@ -140,15 +139,15 @@ public class Main {
     }
 
     private static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
-        Ronda[] rondas = null;
+        Ronda[] rondas;
 //Primero ordeno el vector de partidos por "idRonda"
         Arrays.sort(partidosJugados);
         int indiceDeRondas = 0;
-//Determino el numero de rondas
+//Determino el numero de rondas totales en  el campeonato
         int cantidadRondas = 1;
         for (int i = 1; i < partidosJugados.length; i++){
             boolean idRonda= (partidosJugados[i].getIdRonda().equals(partidosJugados[i - 1].getIdRonda()));
-            boolean idFase = (partidosJugados[i].getIdFase().equals(partidosJugados[i-1].getIdFase()) );
+            boolean idFase = (partidosJugados[i].getIdFase().equals(partidosJugados[i - 1].getIdFase()));
             if (!(idRonda && idFase)) {
                 cantidadRondas++;
             }
@@ -167,7 +166,7 @@ public class Main {
                 if (idRonda && idFase) {
                     cantpart = i + 1;
                 } else {
-                    break;
+                    break; // corta el ciclo "for" porque cambia ronda o fase
                 }
             }
 //Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda

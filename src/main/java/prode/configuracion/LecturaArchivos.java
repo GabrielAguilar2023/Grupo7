@@ -142,7 +142,6 @@ public class LecturaArchivos {
             }
             contadorFila++;
         }
-//    crearObjetosRonda(informacionArchivo);
         return informacionArchivo;
     }
 
@@ -159,7 +158,7 @@ public class LecturaArchivos {
                        (vectorAux[6].equals(resultadosDePartidos[i].getIdRonda()))&&
                        (vectorAux[8].equals(resultadosDePartidos[i].getIdFase()))) {
                             informacionArchivo[contadorFila - 1] = new Pronostico(resultadosDePartidos[i], vectorAux);
-                            informacionArchivo[contadorFila-1].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPronosticoAcertado));
+                            informacionArchivo[contadorFila - 1].setPuntosPorCadaAcierto(Integer.parseInt(puntajePorPronosticoAcertado));
                             break;
                     }
                 }

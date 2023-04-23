@@ -11,6 +11,7 @@ public class Pronostico {
     private ResultadoEnum resultado;
     private int puntosPorCadaAcierto;
 
+// Archivo pronostico.csv y prode.sql
 // |   Equipo1   |    Gana1    |   Empata    |    Gana2    |   Equipo2   | idPartido   |   idRonda   | Participante|   idFase    |idPronostico |
 // |prediccion[0]|prediccion[1]|prediccion[2]|prediccion[3]|prediccion[4]|prediccion[5]|prediccion[6]|prediccion[7]|prediccion[8]|prediccion[9]|
 
