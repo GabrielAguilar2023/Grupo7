@@ -15,12 +15,13 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException {
 
 /**
- Carga de Archivos por argumento:   1º ArchivosEjemploDeEntrada/configuracion.properties
-                                    2º ArchivosEjemploDeEntrada/archivos.csv/resultados.csv
-                                    3º ArchivosEjemploDeEntrada/archivos.csv/pronosticos.csv
+ Carga de Archivos por argumento:   1º src/main/resources/configuracion.properties
+                                    2º src/main/resources/archivos.csv/resultados.csv
+                                    3º src/main/resources/archivos.csv/pronosticos.csv
  Para cargar los pronosticos desde MySQL, configurar la conexion a la base de datos en el archivo "configuracion.properties" y
  pasar por parametros solamente el archivo de 'configuracion' y el de 'resultados'.
  **/
+//Distintas opciones a cerca de la carga de los archivos de entrada
         switch (args.length) {
             case 1: {
                 cargarArchivoDeConfiguracion(args[0]);
@@ -34,7 +35,7 @@ public class Main {
                 archivoResultados = capturaArchivo.nextLine();
                 analizarArchivos(archivoResultados, numeroFijoDeColumnasResultados);
                 System.out.println("\nIngrese el archivo de resultados (p.e. >src/main/resources/archivos.csv/pronosticos.csv< ) o" +
-                                   " \n                                presiones Enter para cargar la base de datos desde MySQL   -->");
+                                   "\n                                 presiones Enter para cargar la base de datos desde MySQL   -->");
                 if ((archivoPronosticos = capturaArchivo.nextLine()).equals("")&&conexionMySql() ){
                     mySql_OK = true;
                 };
@@ -86,33 +87,31 @@ public class Main {
     }
 
     private static Participante[] CrearObjetosParticipantes(Pronostico[] pronosticos) {
-        String[] listaOrdenar = new String[pronosticos.length];
+        String[] nombreParticipante = new String[pronosticos.length];
         Participante [] participantes;
 //Extrae los participantes de cada linea de pronosticos
         for (int i = 0; i < pronosticos.length; i++)
-            listaOrdenar[i] = pronosticos[i].getParticipante();
-        Arrays.sort(listaOrdenar); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
-//Determinar la cantidad de participantes
+            nombreParticipante[i] = pronosticos[i].getParticipante();
+        Arrays.sort(nombreParticipante); // Ordena la lista para poder extraer la cantidad de participantes y sus nombres sin repeticiones
+//Determinar la cantidad de participantes sin repetirse
         int contador = 1;
-        for (int i = 1; i < listaOrdenar.length; i++)
-            if (!listaOrdenar[i].equals(listaOrdenar[i - 1]))
+        for (int i = 1; i < nombreParticipante.length; i++)
+            if (!nombreParticipante[i].equals(nombreParticipante[i - 1]))
                 contador++;
 //Crea un arreglo de objeto participante
         participantes = new Participante[contador];
-        int[][] puntajeParticipante = new int[contador][2];
-        participantes[0] = new Participante(listaOrdenar[0]); //Asigna el primer participante a la lista y comienza a comparar
+        participantes[0] = new Participante(nombreParticipante[0]); //Asigna el primer participante a la lista y comienza a comparar
 //Identifica los participantes y los carga en un vector para su posterior asignacion de puntaje
-        if (listaOrdenar.length > 1) {
+        if (nombreParticipante.length > 1) {
             contador = 1;
-            for (int i = 1; i < listaOrdenar.length; i++)
-                if (!listaOrdenar[i].equals(listaOrdenar[i - 1])) {
-                    participantes[contador] = new Participante( listaOrdenar[i]);
+            for (int i = 1; i < nombreParticipante.length; i++)
+                if (!nombreParticipante[i].equals(nombreParticipante[i - 1])) {
+                    participantes[contador] = new Participante( nombreParticipante[i]);
                     contador++;
                 }
         }
 //Comienza la etapa de  puntaje a cada participante
         for (int j = 0; j < participantes.length; j++) {
-
             ArrayList <String> pasarAciertos = new ArrayList<>();
             int puntajeDeAciertos = 0;
             int cantidadDeAciertos = 0;
@@ -123,8 +122,9 @@ public class Main {
                     puntajeDeAciertos += acierto;
 //Carga de informacion de aciertos en cada participante
                     if (acierto>0) {
-                        pasarAciertos.add(pronosticos[i].getPartido().getIdPartido()+";"+pronosticos[i].getPartido().getIdRonda()+
-                                ";"+pronosticos[i].getIdFase());
+                        pasarAciertos.add( pronosticos[i].getPartido().getIdPartido() +
+                                     ";" + pronosticos[i].getPartido().getIdRonda() +
+                                     ";" + pronosticos[i].getPartido().getIdFase());
                         cantidadDeAciertos++;
                     }
                 }
@@ -134,21 +134,20 @@ public class Main {
 //Asigna puntaje extra por ronda si existe valor en el archivo de configuracion
             participantes[j].setPuntajeRonda(Integer.parseInt(puntajeExtraPorRonda));
             participantes[j].setPuntajeFase(Integer.parseInt(puntajeExtraPorFase));
-
         }
         return participantes;
     }
 
     private static Ronda[] crearObjetosRonda(Partido[] partidosJugados) {
-        Ronda[] rondas = null;
+        Ronda[] rondas;
 //Primero ordeno el vector de partidos por "idRonda"
         Arrays.sort(partidosJugados);
         int indiceDeRondas = 0;
-//Determino el numero de rondas
+//Determino el numero de rondas totales en  el campeonato
         int cantidadRondas = 1;
         for (int i = 1; i < partidosJugados.length; i++){
             boolean idRonda= (partidosJugados[i].getIdRonda().equals(partidosJugados[i - 1].getIdRonda()));
-            boolean idFase = (partidosJugados[i].getIdFase().equals(partidosJugados[i-1].getIdFase()) );
+            boolean idFase = (partidosJugados[i].getIdFase().equals(partidosJugados[i - 1].getIdFase()));
             if (!(idRonda && idFase)) {
                 cantidadRondas++;
             }
@@ -167,7 +166,7 @@ public class Main {
                 if (idRonda && idFase) {
                     cantpart = i + 1;
                 } else {
-                    break;
+                    break; // corta el ciclo "for" porque cambia ronda o fase
                 }
             }
 //Asigno partidos de la misma ronda al vector creado para llamar al constructor de Ronda
@@ -183,6 +182,26 @@ public class Main {
         return rondas;
     }
 
+    private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
+//Seleccionar cada ronda
+        for (int i=0;i<rondas.length;i++){
+            String fase = rondas[i].getPartidos()[0].getIdFase();
+            int aciertosEnEstaRonda = 0;
+//Revisar si cada participante acierta toda la ronda.
+            for(int j=0;j<participantes.length;j++){
+                aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
+                var partidosDeEstaRonda = rondas[i].getPartidos().length;
+                if (aciertosEnEstaRonda==partidosDeEstaRonda){
+                    participantes[j].sumarPuntosExtrasRonda();
+                    if(infoDebug.equals("SI"))System.out.println("\n"+participantes[j].getNombre()+" --> PUNTOS POR RONDA " +
+                            rondas[i].getPartidos()[0].getIdRonda() +" en fase "+ fase );
+
+                }
+            }
+        }
+
+    }
+
     private static void asignarPuntajeExtraPorFase(Partido[] partidos, Participante[] participantes) {
 // Crear vector con todos los Equipos del campeonato sin que se repitan para poder hacer seguimiento de los pronosticos por equipos
         HashSet listaDeEquipos = new HashSet();
@@ -192,12 +211,13 @@ public class Main {
             listaDeEquipos.add(partidos[j].getEquipo2().getNombre());
             numeroDeFases.add(partidos[j].getIdFase());
         }
-        String[] vectorDeEquipos = new String[listaDeEquipos.size()];   // Pasa de HashSet a vector
+        String[] vectorDeEquipos = new String[listaDeEquipos.size()];   // Pasa de HashSet a vector de equipos sin repeticiones
         listaDeEquipos.toArray(vectorDeEquipos);
         String[] vectorDeFases= new String[numeroDeFases.size()];       // Determina el numero de fases del campeonato
         numeroDeFases.toArray(vectorDeFases);
 
-// Buscar en que partido jugo cada equipo
+// Buscar en que partido jugo cada equipo y hacer una lista para enviarla a cada participante y ver si acertaron todos los pronosticos
+// referidos a ese equipo
         for(int k = 0;k<vectorDeFases.length;k++){
             if(infoDebug.equals("SI"))System.out.println("----------------- Fase "+ vectorDeFases[k] +" -----------------");
         for (int i = 0; i < vectorDeEquipos.length; i++) {
@@ -223,26 +243,6 @@ public class Main {
          }
         }
       }
-    }
-
-    private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
-//Seleccionar cada ronda
-       for (int i=0;i<rondas.length;i++){
-           String fase = rondas[i].getPartidos()[0].getIdFase();
-           int aciertosEnEstaRonda = 0;
-//Revisar si cada participante acierta toda la ronda.
-           for(int j=0;j<participantes.length;j++){
-               aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
-               var partidosDeEstaRonda = rondas[i].getPartidos().length;
-               if (aciertosEnEstaRonda==partidosDeEstaRonda){
-                   participantes[j].sumarPuntosExtrasRonda();
-                   if(infoDebug.equals("SI"))System.out.println("\n"+participantes[j].getNombre()+" --> PUNTOS POR RONDA " +
-                           rondas[i].getPartidos()[0].getIdRonda() +" en fase "+ fase );
-
-               }
-           }
-       }
-
     }
 
     private static void imprimirRankingDeAciertos(Participante[] participantes){
