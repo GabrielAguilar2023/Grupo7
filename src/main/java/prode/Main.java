@@ -182,6 +182,26 @@ public class Main {
         return rondas;
     }
 
+    private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
+//Seleccionar cada ronda
+        for (int i=0;i<rondas.length;i++){
+            String fase = rondas[i].getPartidos()[0].getIdFase();
+            int aciertosEnEstaRonda = 0;
+//Revisar si cada participante acierta toda la ronda.
+            for(int j=0;j<participantes.length;j++){
+                aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
+                var partidosDeEstaRonda = rondas[i].getPartidos().length;
+                if (aciertosEnEstaRonda==partidosDeEstaRonda){
+                    participantes[j].sumarPuntosExtrasRonda();
+                    if(infoDebug.equals("SI"))System.out.println("\n"+participantes[j].getNombre()+" --> PUNTOS POR RONDA " +
+                            rondas[i].getPartidos()[0].getIdRonda() +" en fase "+ fase );
+
+                }
+            }
+        }
+
+    }
+
     private static void asignarPuntajeExtraPorFase(Partido[] partidos, Participante[] participantes) {
 // Crear vector con todos los Equipos del campeonato sin que se repitan para poder hacer seguimiento de los pronosticos por equipos
         HashSet listaDeEquipos = new HashSet();
@@ -191,12 +211,13 @@ public class Main {
             listaDeEquipos.add(partidos[j].getEquipo2().getNombre());
             numeroDeFases.add(partidos[j].getIdFase());
         }
-        String[] vectorDeEquipos = new String[listaDeEquipos.size()];   // Pasa de HashSet a vector
+        String[] vectorDeEquipos = new String[listaDeEquipos.size()];   // Pasa de HashSet a vector de equipos sin repeticiones
         listaDeEquipos.toArray(vectorDeEquipos);
         String[] vectorDeFases= new String[numeroDeFases.size()];       // Determina el numero de fases del campeonato
         numeroDeFases.toArray(vectorDeFases);
 
-// Buscar en que partido jugo cada equipo
+// Buscar en que partido jugo cada equipo y hacer una lista para enviarla a cada participante y ver si acertaron todos los pronosticos
+// referidos a ese equipo
         for(int k = 0;k<vectorDeFases.length;k++){
             if(infoDebug.equals("SI"))System.out.println("----------------- Fase "+ vectorDeFases[k] +" -----------------");
         for (int i = 0; i < vectorDeEquipos.length; i++) {
@@ -222,26 +243,6 @@ public class Main {
          }
         }
       }
-    }
-
-    private static void asignarPuntajeExtraPorRonda(Ronda[] rondas, Participante[] participantes) {
-//Seleccionar cada ronda
-       for (int i=0;i<rondas.length;i++){
-           String fase = rondas[i].getPartidos()[0].getIdFase();
-           int aciertosEnEstaRonda = 0;
-//Revisar si cada participante acierta toda la ronda.
-           for(int j=0;j<participantes.length;j++){
-               aciertosEnEstaRonda = participantes[j].aciertosPorRonda(rondas[i].getPartidos()[0].getIdRonda(),fase);
-               var partidosDeEstaRonda = rondas[i].getPartidos().length;
-               if (aciertosEnEstaRonda==partidosDeEstaRonda){
-                   participantes[j].sumarPuntosExtrasRonda();
-                   if(infoDebug.equals("SI"))System.out.println("\n"+participantes[j].getNombre()+" --> PUNTOS POR RONDA " +
-                           rondas[i].getPartidos()[0].getIdRonda() +" en fase "+ fase );
-
-               }
-           }
-       }
-
     }
 
     private static void imprimirRankingDeAciertos(Participante[] participantes){

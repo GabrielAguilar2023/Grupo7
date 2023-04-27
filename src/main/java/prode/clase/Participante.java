@@ -38,11 +38,13 @@ public class Participante {
     public int getPuntaje() {return puntaje;}
 
     public void sumarPuntosExtrasFase(ArrayList<String> partidosDeFase,String mostrar){
-        int partidosDeLaFase = partidosDeFase.size();
         int aciertosDeEsteEquipoEnLaFase =0;
+//Compara la lista de partidos jugados por un equipo en una fase completa, con los aciertos del participante.
         for (String linea:partidosDeFase)
             if (this.listaDeAciertos.contains(linea)) aciertosDeEsteEquipoEnLaFase++;
-        if(aciertosDeEsteEquipoEnLaFase == partidosDeLaFase) {
+//Suma los aciertos del participante sobre el equipo y lo compara con la cantidad de partidos jugados
+//en esa fase por el equipo en cuestion
+        if(aciertosDeEsteEquipoEnLaFase == partidosDeFase.size()) {
             this.puntaje += puntajeFase;
             this.indicacionExtra = this.indicacionExtra + "* ";
             if(mostrar.equals("SI"))System.out.println(this.nombre +" --> PUNTOS POR FASE ");
