@@ -48,10 +48,10 @@ Este proyecto se desarrolló teniendo en cuenta la estructura del campeonato mun
     + 1º fase: 1 ronda  (8 grupos de 4 equipos) 48 partidos
       
     + 2º fase: 4 rondas (octavos, cuartos, semifinales y final)
-        + 1ª Ronda -> 8 partidos (Octavos)
-        + 2º Ronda -> 4 partidos (Cuartos)
-        + 3º Ronda -> 2 partidos (Semifinales)
-        + 4º Ronda -> 2 partidos (Final) y (3ºpuesto)
+        + 1ª Ronda --> 8 partidos (Octavos)
+        + 2º Ronda --> 4 partidos (Cuartos)
+        + 3º Ronda --> 2 partidos (Semifinales)
+        + 4º Ronda --> 2 partidos (Final) y (3º puesto)
 
 |Archivos de Ejemplo:|Ubicación|
 | :------------: | :------------: |
@@ -75,7 +75,9 @@ El archivo "configuracion.properties" debe tener los siguientes datos: key=valor
     campeonatoFinalizado=SI
     infoDebug=NO
 --------------------------------------------
+
 ### Ejemplo de carga de entradas:
+
 ---
     0 parámetros
         + Ingresar por linea de comandos cuando lo solicite
