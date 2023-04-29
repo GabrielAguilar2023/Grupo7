@@ -174,6 +174,6 @@ public class LecturaArchivos {
         System.out.println("  Ronda completa = " + puntajeExtraPorRonda + " puntos.  ");
         System.out.println("  Fase completa por equipo = " + puntajeExtraPorFase + " puntos.  ");
         System.out.println("***********************************************");
-
     }
+
 }

@@ -42,7 +42,6 @@ public class Pronostico {
     }
 
 //** Getters **
-
     public String getIdFase() {
         return idFase;
     }

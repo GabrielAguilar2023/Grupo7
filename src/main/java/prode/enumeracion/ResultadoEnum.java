@@ -1,6 +1,3 @@
 package prode.enumeracion;
 
-public enum ResultadoEnum {
-    GANADOR,
-    EMPATE
-}
+public enum ResultadoEnum { GANADOR, EMPATE }

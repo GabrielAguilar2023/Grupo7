@@ -27,9 +27,7 @@ public class Participante {
 
     public String getNombre() {return nombre;}
 
-    public String getIndicacionExtra() {
-        return indicacionExtra;
-    }
+    public String getIndicacionExtra() {return indicacionExtra; }
 
     public ArrayList<String> getListaDeAciertos() {
         return listaDeAciertos;
